@@ -1,0 +1,829 @@
+{
+  "id": "capi-city",
+  "name": "Capi City",
+  "description": "Tablero clásico de 40 casillas con barrios inventados de una ciudad costera.",
+  "version": 1,
+  "currency": {
+    "symbol": "₡",
+    "code": "CAP"
+  },
+  "theme": {
+    "background": "radial-gradient(1200px 800px at 20% 10%, #3b2f7a 0%, #0f1024 55%, #05060f 100%)",
+    "accent": "#7c5cff",
+    "boardColor": "rgba(240, 244, 255, 0.06)"
+  },
+  "groups": [
+    {
+      "id": "faro",
+      "name": "Barrio del Faro",
+      "color": "#8e6b4a",
+      "houseCost": 50
+    },
+    {
+      "id": "jardin",
+      "name": "Jardines",
+      "color": "#5ac8fa",
+      "houseCost": 50
+    },
+    {
+      "id": "ribera",
+      "name": "Ribera",
+      "color": "#ff2d92",
+      "houseCost": 100
+    },
+    {
+      "id": "andes",
+      "name": "Cordillera",
+      "color": "#ff9f0a",
+      "houseCost": 100
+    },
+    {
+      "id": "rambla",
+      "name": "Rambla",
+      "color": "#ff3b30",
+      "houseCost": 150
+    },
+    {
+      "id": "alameda",
+      "name": "Alameda",
+      "color": "#ffd60a",
+      "houseCost": 150
+    },
+    {
+      "id": "puerto",
+      "name": "Puerto",
+      "color": "#30d158",
+      "houseCost": 200
+    },
+    {
+      "id": "cumbre",
+      "name": "Cumbre",
+      "color": "#5e5ce6",
+      "houseCost": 200
+    },
+    {
+      "id": "transport",
+      "name": "Estaciones",
+      "color": "#c7c7cc"
+    },
+    {
+      "id": "utility",
+      "name": "Servicios",
+      "color": "#e5e5ea"
+    }
+  ],
+  "tiles": [
+    {
+      "id": "salida",
+      "type": "start",
+      "name": "Salida",
+      "icon": "Rocket",
+      "description": "Cobra el bono cada vez que pasas."
+    },
+    {
+      "id": "callejon-faro",
+      "type": "property",
+      "name": "Callejón del Faro",
+      "groupId": "faro",
+      "price": 60,
+      "rent": [
+        5,
+        25,
+        70,
+        200,
+        290,
+        375
+      ],
+      "mortgage": 30,
+      "image": "/boards/capi-city/callejon-faro.svg"
+    },
+    {
+      "id": "correo-1",
+      "type": "card",
+      "name": "Correo",
+      "icon": "Mail",
+      "deckId": "correo"
+    },
+    {
+      "id": "plaza-molino",
+      "type": "property",
+      "name": "Plaza del Molino",
+      "groupId": "faro",
+      "price": 60,
+      "rent": [
+        5,
+        25,
+        70,
+        200,
+        290,
+        375
+      ],
+      "mortgage": 30,
+      "image": "/boards/capi-city/plaza-molino.svg"
+    },
+    {
+      "id": "impuesto",
+      "type": "tax",
+      "name": "Impuesto Municipal",
+      "icon": "Receipt",
+      "amount": 200
+    },
+    {
+      "id": "estacion-norte",
+      "type": "transport",
+      "name": "Estación Norte",
+      "groupId": "transport",
+      "price": 200,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ],
+      "mortgage": 100,
+      "image": "/boards/capi-city/estacion-norte.svg"
+    },
+    {
+      "id": "jacaranda",
+      "type": "property",
+      "name": "Calle Jacarandá",
+      "groupId": "jardin",
+      "price": 100,
+      "rent": [
+        8,
+        40,
+        112,
+        320,
+        464,
+        600
+      ],
+      "mortgage": 50,
+      "image": "/boards/capi-city/jacaranda.svg"
+    },
+    {
+      "id": "fortuna-1",
+      "type": "card",
+      "name": "Fortuna",
+      "icon": "Sparkles",
+      "deckId": "fortuna"
+    },
+    {
+      "id": "ceibo",
+      "type": "property",
+      "name": "Avenida Ceibo",
+      "groupId": "jardin",
+      "price": 100,
+      "rent": [
+        8,
+        40,
+        112,
+        320,
+        464,
+        600
+      ],
+      "mortgage": 50,
+      "image": "/boards/capi-city/ceibo.svg"
+    },
+    {
+      "id": "lapacho",
+      "type": "property",
+      "name": "Paseo Lapacho",
+      "groupId": "jardin",
+      "price": 120,
+      "rent": [
+        10,
+        50,
+        140,
+        400,
+        580,
+        750
+      ],
+      "mortgage": 60,
+      "image": "/boards/capi-city/lapacho.svg"
+    },
+    {
+      "id": "comisaria",
+      "type": "jail",
+      "name": "Comisaría",
+      "icon": "Siren",
+      "description": "De visita o detenido."
+    },
+    {
+      "id": "sauce",
+      "type": "property",
+      "name": "Ribera del Sauce",
+      "groupId": "ribera",
+      "price": 140,
+      "rent": [
+        11,
+        55,
+        154,
+        440,
+        638,
+        825
+      ],
+      "mortgage": 70,
+      "image": "/boards/capi-city/sauce.svg"
+    },
+    {
+      "id": "electrica",
+      "type": "utility",
+      "name": "Compañía Eléctrica",
+      "groupId": "utility",
+      "price": 150,
+      "multipliers": [
+        4,
+        10
+      ],
+      "mortgage": 75,
+      "image": "/boards/capi-city/electrica.svg"
+    },
+    {
+      "id": "colibri",
+      "type": "property",
+      "name": "Bulevar Colibrí",
+      "groupId": "ribera",
+      "price": 140,
+      "rent": [
+        11,
+        55,
+        154,
+        440,
+        638,
+        825
+      ],
+      "mortgage": 70,
+      "image": "/boards/capi-city/colibri.svg"
+    },
+    {
+      "id": "mirador",
+      "type": "property",
+      "name": "Mirador del Cerro",
+      "groupId": "ribera",
+      "price": 160,
+      "rent": [
+        13,
+        65,
+        182,
+        520,
+        754,
+        975
+      ],
+      "mortgage": 80,
+      "image": "/boards/capi-city/mirador.svg"
+    },
+    {
+      "id": "estacion-este",
+      "type": "transport",
+      "name": "Estación Este",
+      "groupId": "transport",
+      "price": 200,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ],
+      "mortgage": 100,
+      "image": "/boards/capi-city/estacion-este.svg"
+    },
+    {
+      "id": "naranjos",
+      "type": "property",
+      "name": "Calle Naranjos",
+      "groupId": "andes",
+      "price": 180,
+      "rent": [
+        14,
+        70,
+        196,
+        560,
+        812,
+        1050
+      ],
+      "mortgage": 90,
+      "image": "/boards/capi-city/naranjos.svg"
+    },
+    {
+      "id": "correo-2",
+      "type": "card",
+      "name": "Correo",
+      "icon": "Mail",
+      "deckId": "correo"
+    },
+    {
+      "id": "andino",
+      "type": "property",
+      "name": "Pasaje Andino",
+      "groupId": "andes",
+      "price": 180,
+      "rent": [
+        14,
+        70,
+        196,
+        560,
+        812,
+        1050
+      ],
+      "mortgage": 90,
+      "image": "/boards/capi-city/andino.svg"
+    },
+    {
+      "id": "pacifico",
+      "type": "property",
+      "name": "Avenida Pacífico",
+      "groupId": "andes",
+      "price": 200,
+      "rent": [
+        16,
+        80,
+        224,
+        640,
+        928,
+        1200
+      ],
+      "mortgage": 100,
+      "image": "/boards/capi-city/pacifico.svg"
+    },
+    {
+      "id": "plaza-libre",
+      "type": "free",
+      "name": "Plaza Libre",
+      "icon": "TreePalm",
+      "description": "Descansa un momento."
+    },
+    {
+      "id": "rambla-sol",
+      "type": "property",
+      "name": "Rambla del Sol",
+      "groupId": "rambla",
+      "price": 220,
+      "rent": [
+        18,
+        90,
+        252,
+        720,
+        1044,
+        1350
+      ],
+      "mortgage": 110,
+      "image": "/boards/capi-city/rambla-sol.svg"
+    },
+    {
+      "id": "fortuna-2",
+      "type": "card",
+      "name": "Fortuna",
+      "icon": "Sparkles",
+      "deckId": "fortuna"
+    },
+    {
+      "id": "caracol",
+      "type": "property",
+      "name": "Calle Caracol",
+      "groupId": "rambla",
+      "price": 220,
+      "rent": [
+        18,
+        90,
+        252,
+        720,
+        1044,
+        1350
+      ],
+      "mortgage": 110,
+      "image": "/boards/capi-city/caracol.svg"
+    },
+    {
+      "id": "malecon",
+      "type": "property",
+      "name": "Malecón Esmeralda",
+      "groupId": "rambla",
+      "price": 240,
+      "rent": [
+        19,
+        95,
+        266,
+        760,
+        1102,
+        1425
+      ],
+      "mortgage": 120,
+      "image": "/boards/capi-city/malecon.svg"
+    },
+    {
+      "id": "estacion-sur",
+      "type": "transport",
+      "name": "Estación Sur",
+      "groupId": "transport",
+      "price": 200,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ],
+      "mortgage": 100,
+      "image": "/boards/capi-city/estacion-sur.svg"
+    },
+    {
+      "id": "alameda-real",
+      "type": "property",
+      "name": "Alameda Real",
+      "groupId": "alameda",
+      "price": 260,
+      "rent": [
+        21,
+        105,
+        294,
+        840,
+        1218,
+        1575
+      ],
+      "mortgage": 130,
+      "image": "/boards/capi-city/alameda-real.svg"
+    },
+    {
+      "id": "lago",
+      "type": "property",
+      "name": "Jardines del Lago",
+      "groupId": "alameda",
+      "price": 260,
+      "rent": [
+        21,
+        105,
+        294,
+        840,
+        1218,
+        1575
+      ],
+      "mortgage": 130,
+      "image": "/boards/capi-city/lago.svg"
+    },
+    {
+      "id": "aguas",
+      "type": "utility",
+      "name": "Aguas Capi",
+      "groupId": "utility",
+      "price": 150,
+      "multipliers": [
+        4,
+        10
+      ],
+      "mortgage": 75,
+      "image": "/boards/capi-city/aguas.svg"
+    },
+    {
+      "id": "volcan",
+      "type": "property",
+      "name": "Camino del Volcán",
+      "groupId": "alameda",
+      "price": 280,
+      "rent": [
+        22,
+        110,
+        308,
+        880,
+        1276,
+        1650
+      ],
+      "mortgage": 140,
+      "image": "/boards/capi-city/volcan.svg"
+    },
+    {
+      "id": "a-comisaria",
+      "type": "go-to-jail",
+      "name": "A la Comisaría",
+      "icon": "ShieldAlert",
+      "description": "Ve directo a la Comisaría."
+    },
+    {
+      "id": "costanera",
+      "type": "property",
+      "name": "Costanera Azul",
+      "groupId": "puerto",
+      "price": 300,
+      "rent": [
+        24,
+        120,
+        336,
+        960,
+        1392,
+        1800
+      ],
+      "mortgage": 150,
+      "image": "/boards/capi-city/costanera.svg"
+    },
+    {
+      "id": "torre-puerto",
+      "type": "property",
+      "name": "Torre del Puerto",
+      "groupId": "puerto",
+      "price": 300,
+      "rent": [
+        24,
+        120,
+        336,
+        960,
+        1392,
+        1800
+      ],
+      "mortgage": 150,
+      "image": "/boards/capi-city/torre-puerto.svg"
+    },
+    {
+      "id": "correo-3",
+      "type": "card",
+      "name": "Correo",
+      "icon": "Mail",
+      "deckId": "correo"
+    },
+    {
+      "id": "aurora",
+      "type": "property",
+      "name": "Boulevard Aurora",
+      "groupId": "puerto",
+      "price": 320,
+      "rent": [
+        26,
+        130,
+        364,
+        1040,
+        1508,
+        1950
+      ],
+      "mortgage": 160,
+      "image": "/boards/capi-city/aurora.svg"
+    },
+    {
+      "id": "estacion-oeste",
+      "type": "transport",
+      "name": "Estación Oeste",
+      "groupId": "transport",
+      "price": 200,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ],
+      "mortgage": 100,
+      "image": "/boards/capi-city/estacion-oeste.svg"
+    },
+    {
+      "id": "fortuna-3",
+      "type": "card",
+      "name": "Fortuna",
+      "icon": "Sparkles",
+      "deckId": "fortuna"
+    },
+    {
+      "id": "cumbre-dorada",
+      "type": "property",
+      "name": "Cumbre Dorada",
+      "groupId": "cumbre",
+      "price": 350,
+      "rent": [
+        28,
+        140,
+        392,
+        1120,
+        1624,
+        2100
+      ],
+      "mortgage": 175,
+      "image": "/boards/capi-city/cumbre-dorada.svg"
+    },
+    {
+      "id": "tasa-lujo",
+      "type": "tax",
+      "name": "Tasa de Lujo",
+      "icon": "Diamond",
+      "amount": 100
+    },
+    {
+      "id": "condor",
+      "type": "property",
+      "name": "Palacio del Cóndor",
+      "groupId": "cumbre",
+      "price": 400,
+      "rent": [
+        32,
+        160,
+        448,
+        1280,
+        1856,
+        2400
+      ],
+      "mortgage": 200,
+      "image": "/boards/capi-city/condor.svg"
+    }
+  ],
+  "decks": [
+    {
+      "id": "fortuna",
+      "name": "Fortuna",
+      "color": "#ff9f0a",
+      "cards": [
+        {
+          "id": "f1",
+          "text": "Ganas un concurso de tango. Cobra 100.",
+          "action": {
+            "kind": "receive",
+            "amount": 100
+          }
+        },
+        {
+          "id": "f2",
+          "text": "Avanza hasta la Salida.",
+          "action": {
+            "kind": "move-to",
+            "tileId": "salida"
+          }
+        },
+        {
+          "id": "f3",
+          "text": "Retrocede tres casillas.",
+          "action": {
+            "kind": "move-by",
+            "steps": -3
+          }
+        },
+        {
+          "id": "f4",
+          "text": "Ve a la Comisaría sin pasar por la Salida.",
+          "action": {
+            "kind": "go-to-jail"
+          }
+        },
+        {
+          "id": "f5",
+          "text": "Multa por exceso de velocidad. Paga 15.",
+          "action": {
+            "kind": "pay",
+            "amount": 15
+          }
+        },
+        {
+          "id": "f6",
+          "text": "Viaja a la estación más cercana. Si tiene dueño, paga renta doble.",
+          "action": {
+            "kind": "move-to-nearest",
+            "tileType": "transport",
+            "rentMultiplier": 2
+          }
+        },
+        {
+          "id": "f7",
+          "text": "Avanza hasta el Malecón Esmeralda.",
+          "action": {
+            "kind": "move-to",
+            "tileId": "malecon"
+          }
+        },
+        {
+          "id": "f8",
+          "text": "Reparaciones: paga 25 por casa y 100 por hotel.",
+          "action": {
+            "kind": "repairs",
+            "perHouse": 25,
+            "perHotel": 100
+          }
+        },
+        {
+          "id": "f9",
+          "text": "Sales gratis de la Comisaría. Guarda esta carta.",
+          "action": {
+            "kind": "jail-free"
+          }
+        },
+        {
+          "id": "f10",
+          "text": "Eres elegido presidente del club. Paga 50 a cada jugador.",
+          "action": {
+            "kind": "pay-each-player",
+            "amount": 50
+          }
+        },
+        {
+          "id": "f11",
+          "text": "Tu inversión en cafeterías rinde. Cobra 150.",
+          "action": {
+            "kind": "receive",
+            "amount": 150
+          }
+        },
+        {
+          "id": "f12",
+          "text": "Ve a la compañía de servicios más cercana y paga el doble.",
+          "action": {
+            "kind": "move-to-nearest",
+            "tileType": "utility",
+            "rentMultiplier": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "correo",
+      "name": "Correo",
+      "color": "#5ac8fa",
+      "cards": [
+        {
+          "id": "c1",
+          "text": "Error bancario a tu favor. Cobra 200.",
+          "action": {
+            "kind": "receive",
+            "amount": 200
+          }
+        },
+        {
+          "id": "c2",
+          "text": "Consulta médica. Paga 50.",
+          "action": {
+            "kind": "pay",
+            "amount": 50
+          }
+        },
+        {
+          "id": "c3",
+          "text": "Avanza hasta la Salida.",
+          "action": {
+            "kind": "move-to",
+            "tileId": "salida"
+          }
+        },
+        {
+          "id": "c4",
+          "text": "Es tu cumpleaños. Cobra 10 de cada jugador.",
+          "action": {
+            "kind": "receive-from-each-player",
+            "amount": 10
+          }
+        },
+        {
+          "id": "c5",
+          "text": "Devolución de impuestos. Cobra 20.",
+          "action": {
+            "kind": "receive",
+            "amount": 20
+          }
+        },
+        {
+          "id": "c6",
+          "text": "Ve a la Comisaría sin pasar por la Salida.",
+          "action": {
+            "kind": "go-to-jail"
+          }
+        },
+        {
+          "id": "c7",
+          "text": "Sales gratis de la Comisaría. Guarda esta carta.",
+          "action": {
+            "kind": "jail-free"
+          }
+        },
+        {
+          "id": "c8",
+          "text": "Herencia inesperada. Cobra 100.",
+          "action": {
+            "kind": "receive",
+            "amount": 100
+          }
+        },
+        {
+          "id": "c9",
+          "text": "Matrícula escolar. Paga 50.",
+          "action": {
+            "kind": "pay",
+            "amount": 50
+          }
+        },
+        {
+          "id": "c10",
+          "text": "Reparaciones urbanas: paga 40 por casa y 115 por hotel.",
+          "action": {
+            "kind": "repairs",
+            "perHouse": 40,
+            "perHotel": 115
+          }
+        },
+        {
+          "id": "c11",
+          "text": "Vendes tus bicicletas viejas. Cobra 45.",
+          "action": {
+            "kind": "receive",
+            "amount": 45
+          }
+        },
+        {
+          "id": "c12",
+          "text": "Cuota de la comunidad. Paga 100.",
+          "action": {
+            "kind": "pay",
+            "amount": 100
+          }
+        }
+      ]
+    }
+  ]
+}

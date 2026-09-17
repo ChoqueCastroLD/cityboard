@@ -1,0 +1,21 @@
+{
+  "name": "capi-core",
+  "version": "0.1.0",
+  "description": "Pure, deterministic game engine for Capi. No I/O, shared by server and clients.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./boards/*": "./boards/*"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

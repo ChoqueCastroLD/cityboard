@@ -1,0 +1,32 @@
+# Atribución de imágenes · Mundo Clásico
+
+Fotografías descargadas de Wikimedia Commons a través de Wikipedia. Cada archivo conserva la licencia de su autor.
+
+- `lisboa.jpg` (Lisboa): página https://es.wikipedia.org/wiki/Lisboa · archivo https://commons.wikimedia.org/wiki/File:Lisbon_(36831596786)_(cropped).jpg · licencia CC BY 2.0 · autor Deensel
+- `atenas.jpg` (Atenas): página https://en.wikipedia.org/wiki/Atenas · archivo https://commons.wikimedia.org/wiki/File:Iglesia_Atenas.jpg · licencia CC BY 4.0 · autor Haakon S. Krohn
+- `heathrow.jpg` (Aeropuerto de Heathrow): página https://es.wikipedia.org/wiki/Aeropuerto_de_Londres-Heathrow · archivo https://commons.wikimedia.org/wiki/File:London_-_Heathrow_(LHR_-_EGLL)_AN1572653.jpg · licencia GFDL 1.2 · autor Konstantin Von Wedelstaedt
+- `estambul.jpg` (Estambul): página https://es.wikipedia.org/wiki/Estambul · archivo https://commons.wikimedia.org/wiki/File:Bosphorus_Bridge_(235499411).jpeg · licencia CC BY-SA 3.0 · autor Alexxx Malev
+- `praga.jpg` (Praga): página https://en.wikipedia.org/wiki/Praga · archivo https://commons.wikimedia.org/wiki/File:Ulica_Z%C4%85bkowska_przy_Targowej_2020.jpg · licencia CC BY-SA 3.0 pl · autor Adrian Grycuk
+- `viena.jpg` (Viena): página https://es.wikipedia.org/wiki/Viena · archivo https://commons.wikimedia.org/wiki/File:Schoenbrunn_philharmoniker_2012.jpg · licencia CC BY-SA 3.0 · autor Superbass
+- `roma.jpg` (Roma): página https://es.wikipedia.org/wiki/Coliseo · archivo https://commons.wikimedia.org/wiki/File:Europe_Day_2024_-_53718129954.jpg · licencia CC BY 2.0 · autor European Parliament
+- `electrica.jpg` (Red Eléctrica Global): página https://es.wikipedia.org/wiki/L%C3%ADnea_el%C3%A9ctrica_a%C3%A9rea · archivo https://commons.wikimedia.org/wiki/File:Anchor_pylon_of_high-voltage_overhead_power_line_750_kV.jpg · licencia CC0 · autor Novoklimov
+- `madrid.jpg` (Madrid): página https://en.wikipedia.org/wiki/Madrid · archivo https://commons.wikimedia.org/wiki/File:Madrid_-_Sky_Bar_360%C2%BA_(Hotel_Riu_Plaza_Espa%C3%B1a)%2C_vistas_19.jpg · licencia CC0 · autor Zarateman
+- `amsterdam.png` (Ámsterdam): página https://es.wikipedia.org/wiki/%C3%81msterdam · archivo https://commons.wikimedia.org/wiki/File:Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png · licencia CC BY-SA 4.0 · autor Andrés Barrios
+- `tokio-central.jpg` (Estación Central de Tokio): página https://es.wikipedia.org/wiki/Estaci%C3%B3n_de_Tokio · archivo https://commons.wikimedia.org/wiki/File:Tokyo_station_from_marunouchi_oazo.JPG · licencia CC BY-SA 3.0 · autor Toshinori baba
+- `berlin.jpg` (Berlín): página https://es.wikipedia.org/wiki/Berl%C3%ADn · archivo https://commons.wikimedia.org/wiki/File:Siegessaeule_Aussicht_10-13_img4_Tiergarten.jpg · licencia CC BY-SA 3.0 · autor A.Savin
+- `paris.jpg` (París): página https://es.wikipedia.org/wiki/Par%C3%ADs · archivo https://commons.wikimedia.org/wiki/File:La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_(2).jpg · licencia CC BY-SA 2.0 · autor Yann Caradec from Paris, France
+- `sidney.jpg` (Sídney): página https://es.wikipedia.org/wiki/%C3%93pera_de_S%C3%ADdney · archivo https://commons.wikimedia.org/wiki/File:Sydney_Australia._(21339175489).jpg · licencia CC0 · autor Bernard Spragg. NZ from Christchurch, New Zealand
+- `rio.jpg` (Río de Janeiro): página https://en.wikipedia.org/wiki/Rio_de_Janeiro · archivo https://commons.wikimedia.org/wiki/File:Cidade_Maravilhosa.jpg · licencia CC BY-SA 3.0 · autor Rafael Rabello de Barros
+- `cdmx.jpg` (Ciudad de México): página https://es.wikipedia.org/wiki/Ciudad_de_M%C3%A9xico · archivo https://commons.wikimedia.org/wiki/File:Catedral_Metropolitana_de_la_Ciudad_de_M%C3%A9xico_1.jpg · licencia CC BY-SA 4.0 · autor ProtoplasmaKid
+- `toronto.jpg` (Toronto): página https://en.wikipedia.org/wiki/Toronto · archivo https://commons.wikimedia.org/wiki/File:Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_(5-3_cropped).jpg · licencia CC BY-SA 4.0 · autor Dillan Payne
+- `jfk.jpg` (Aeropuerto JFK): página https://es.wikipedia.org/wiki/Aeropuerto_Internacional_John_F._Kennedy · archivo https://commons.wikimedia.org/wiki/File:JFK_Aerial_Nov_14_2018.jpg · licencia CC BY-SA 4.0 · autor User:KenzieAbraham
+- `shanghai.jpg` (Shanghái): página https://es.wikipedia.org/wiki/Shangh%C3%A1i · archivo https://commons.wikimedia.org/wiki/File:Huangpu_Park_20124-Shanghai_(32208802494).jpg · licencia CC BY 2.0 · autor xiquinhosilva
+- `seul.jpg` (Seúl): página https://es.wikipedia.org/wiki/Se%C3%BAl · archivo https://commons.wikimedia.org/wiki/File:%EB%8D%95%EC%88%98%EA%B6%81%EC%9D%98_%EA%B0%80%EC%9D%84.jpg · licencia CC BY-SA 3.0 · autor 라성민
+- `agua.jpg` (Agua Potable Mundial): página https://es.wikipedia.org/wiki/Presa_Hoover · archivo https://commons.wikimedia.org/wiki/File:2017_Aerial_view_Hoover_Dam_4774.jpg · licencia CC BY-SA 4.0 · autor Mariordo (Mario Roberto Durán Ortiz)
+- `singapur.jpg` (Singapur): página https://es.wikipedia.org/wiki/Marina_Bay_Sands · archivo https://commons.wikimedia.org/wiki/File:Marina_Bay_Sands_in_the_evening_-_20101120.jpg · licencia CC BY-SA 3.0 · autor Someformofhuman
+- `nueva-york.jpg` (Nueva York): página https://es.wikipedia.org/wiki/Nueva_York · archivo https://commons.wikimedia.org/wiki/File:View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg · licencia CC BY-SA 4.0 · autor Dllu
+- `tokio.jpg` (Tokio): página https://es.wikipedia.org/wiki/Tokio · archivo https://commons.wikimedia.org/wiki/File:Shinjuku_central_park_southwest.jpg · licencia CC0 · autor 鋸香具師
+- `los-angeles.jpg` (Los Ángeles): página https://es.wikipedia.org/wiki/Los_%C3%81ngeles · archivo https://commons.wikimedia.org/wiki/File:Hollywood_sign_(8485145044).jpg · licencia CC BY-SA 2.0 · autor Gnaphron
+- `dubai-aeropuerto.png` (Aeropuerto de Dubái): página https://es.wikipedia.org/wiki/Metro_de_Dub%C3%A1i · archivo https://commons.wikimedia.org/wiki/File:5018_Dubai_Metro_in_Dubai_UAE.png · licencia CC BY 3.0 · autor Tim Adams
+- `londres.jpg` (Londres): página https://es.wikipedia.org/wiki/Londres · archivo https://commons.wikimedia.org/wiki/File:London_Skyline_(125508655).jpeg · licencia CC BY-SA 3.0 · autor Ilya Grigorik
+- `dubai.jpg` (Dubái): página https://es.wikipedia.org/wiki/Burj_Khalifa · archivo https://commons.wikimedia.org/wiki/File:Dubai%2C_United_Arab_Emirates_(Unsplash_suv4vuJsH6g).jpg · licencia CC0 · autor Caleb Whiting dogbear869

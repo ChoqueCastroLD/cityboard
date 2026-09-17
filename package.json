@@ -1,0 +1,23 @@
+{
+  "name": "capi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Capi: an open-source, data-driven property trading board game engine (classic + async modes).",
+  "license": "MIT",
+  "workspaces": [
+    "capi-core",
+    "capi-api",
+    "capi-frontend"
+  ],
+  "scripts": {
+    "dev:api": "bun run --cwd capi-api dev",
+    "dev:web": "bun run --cwd capi-frontend dev",
+    "db:setup": "bun run --cwd capi-api db:setup",
+    "test": "bun run --cwd capi-core test",
+    "typecheck": "bun run --cwd capi-core typecheck && bun run --cwd capi-api typecheck && bun run --cwd capi-frontend typecheck",
+    "build:web": "bun run --cwd capi-frontend build"
+  },
+  "engines": {
+    "bun": ">=1.1"
+  }
+}

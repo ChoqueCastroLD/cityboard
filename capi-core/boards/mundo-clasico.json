@@ -1,0 +1,829 @@
+{
+  "id": "mundo-clasico",
+  "name": "Mundo Clásico",
+  "description": "Vuelta al mundo de 40 casillas por las ciudades más icónicas del planeta.",
+  "version": 1,
+  "currency": {
+    "symbol": "$",
+    "code": "USD"
+  },
+  "theme": {
+    "background": "radial-gradient(1200px 800px at 15% 10%, #1e3a8a 0%, #0b1a3f 55%, #04091a 100%)",
+    "accent": "#38bdf8",
+    "boardColor": "rgba(200, 225, 255, 0.06)"
+  },
+  "groups": [
+    {
+      "id": "iberia",
+      "name": "Mediterráneo",
+      "color": "#a16207",
+      "houseCost": 50
+    },
+    {
+      "id": "centro",
+      "name": "Europa Central",
+      "color": "#38bdf8",
+      "houseCost": 50
+    },
+    {
+      "id": "latina",
+      "name": "Europa Latina",
+      "color": "#ec4899",
+      "houseCost": 100
+    },
+    {
+      "id": "capitales",
+      "name": "Capitales",
+      "color": "#f97316",
+      "houseCost": 100
+    },
+    {
+      "id": "americas",
+      "name": "Américas",
+      "color": "#ef4444",
+      "houseCost": 150
+    },
+    {
+      "id": "asia",
+      "name": "Asia",
+      "color": "#eab308",
+      "houseCost": 150
+    },
+    {
+      "id": "metropolis",
+      "name": "Metrópolis",
+      "color": "#22c55e",
+      "houseCost": 200
+    },
+    {
+      "id": "lujo",
+      "name": "Lujo",
+      "color": "#6366f1",
+      "houseCost": 200
+    },
+    {
+      "id": "transport",
+      "name": "Aeropuertos",
+      "color": "#c7c7cc"
+    },
+    {
+      "id": "utility",
+      "name": "Servicios",
+      "color": "#e5e5ea"
+    }
+  ],
+  "tiles": [
+    {
+      "id": "salida",
+      "type": "start",
+      "name": "Salida",
+      "icon": "Rocket",
+      "description": "Cobra el bono cada vez que pasas."
+    },
+    {
+      "id": "lisboa",
+      "type": "property",
+      "name": "Lisboa",
+      "image": "/boards/mundo-clasico/lisboa.jpg",
+      "groupId": "iberia",
+      "price": 60,
+      "mortgage": 30,
+      "rent": [
+        5,
+        25,
+        70,
+        200,
+        290,
+        375
+      ]
+    },
+    {
+      "id": "correo-1",
+      "type": "card",
+      "name": "Correo",
+      "icon": "Mail",
+      "deckId": "correo"
+    },
+    {
+      "id": "atenas",
+      "type": "property",
+      "name": "Atenas",
+      "image": "/boards/mundo-clasico/atenas.jpg",
+      "groupId": "iberia",
+      "price": 60,
+      "mortgage": 30,
+      "rent": [
+        5,
+        25,
+        70,
+        200,
+        290,
+        375
+      ]
+    },
+    {
+      "id": "impuesto",
+      "type": "tax",
+      "name": "Impuesto Aduanero",
+      "icon": "Receipt",
+      "amount": 200
+    },
+    {
+      "id": "heathrow",
+      "type": "transport",
+      "name": "Aeropuerto de Heathrow",
+      "image": "/boards/mundo-clasico/heathrow.jpg",
+      "groupId": "transport",
+      "price": 200,
+      "mortgage": 100,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ]
+    },
+    {
+      "id": "estambul",
+      "type": "property",
+      "name": "Estambul",
+      "image": "/boards/mundo-clasico/estambul.jpg",
+      "groupId": "centro",
+      "price": 100,
+      "mortgage": 50,
+      "rent": [
+        8,
+        40,
+        112,
+        320,
+        464,
+        600
+      ]
+    },
+    {
+      "id": "fortuna-1",
+      "type": "card",
+      "name": "Fortuna",
+      "icon": "Sparkles",
+      "deckId": "fortuna"
+    },
+    {
+      "id": "praga",
+      "type": "property",
+      "name": "Praga",
+      "image": "/boards/mundo-clasico/praga.jpg",
+      "groupId": "centro",
+      "price": 100,
+      "mortgage": 50,
+      "rent": [
+        8,
+        40,
+        112,
+        320,
+        464,
+        600
+      ]
+    },
+    {
+      "id": "viena",
+      "type": "property",
+      "name": "Viena",
+      "image": "/boards/mundo-clasico/viena.jpg",
+      "groupId": "centro",
+      "price": 120,
+      "mortgage": 60,
+      "rent": [
+        10,
+        50,
+        140,
+        400,
+        580,
+        750
+      ]
+    },
+    {
+      "id": "aduana",
+      "type": "jail",
+      "name": "Aduana Internacional",
+      "icon": "Siren",
+      "description": "De visita o retenido."
+    },
+    {
+      "id": "roma",
+      "type": "property",
+      "name": "Roma",
+      "image": "/boards/mundo-clasico/roma.jpg",
+      "groupId": "latina",
+      "price": 140,
+      "mortgage": 70,
+      "rent": [
+        11,
+        55,
+        154,
+        440,
+        638,
+        825
+      ]
+    },
+    {
+      "id": "electrica",
+      "type": "utility",
+      "name": "Red Eléctrica Global",
+      "image": "/boards/mundo-clasico/electrica.jpg",
+      "groupId": "utility",
+      "price": 150,
+      "mortgage": 75,
+      "multipliers": [
+        4,
+        10
+      ]
+    },
+    {
+      "id": "madrid",
+      "type": "property",
+      "name": "Madrid",
+      "image": "/boards/mundo-clasico/madrid.jpg",
+      "groupId": "latina",
+      "price": 140,
+      "mortgage": 70,
+      "rent": [
+        11,
+        55,
+        154,
+        440,
+        638,
+        825
+      ]
+    },
+    {
+      "id": "amsterdam",
+      "type": "property",
+      "name": "Ámsterdam",
+      "image": "/boards/mundo-clasico/amsterdam.png",
+      "groupId": "latina",
+      "price": 160,
+      "mortgage": 80,
+      "rent": [
+        13,
+        65,
+        182,
+        520,
+        754,
+        975
+      ]
+    },
+    {
+      "id": "tokio-central",
+      "type": "transport",
+      "name": "Estación Central de Tokio",
+      "image": "/boards/mundo-clasico/tokio-central.jpg",
+      "groupId": "transport",
+      "price": 200,
+      "mortgage": 100,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ]
+    },
+    {
+      "id": "berlin",
+      "type": "property",
+      "name": "Berlín",
+      "image": "/boards/mundo-clasico/berlin.jpg",
+      "groupId": "capitales",
+      "price": 180,
+      "mortgage": 90,
+      "rent": [
+        14,
+        70,
+        196,
+        560,
+        812,
+        1050
+      ]
+    },
+    {
+      "id": "correo-2",
+      "type": "card",
+      "name": "Correo",
+      "icon": "Mail",
+      "deckId": "correo"
+    },
+    {
+      "id": "paris",
+      "type": "property",
+      "name": "París",
+      "image": "/boards/mundo-clasico/paris.jpg",
+      "groupId": "capitales",
+      "price": 180,
+      "mortgage": 90,
+      "rent": [
+        14,
+        70,
+        196,
+        560,
+        812,
+        1050
+      ]
+    },
+    {
+      "id": "sidney",
+      "type": "property",
+      "name": "Sídney",
+      "image": "/boards/mundo-clasico/sidney.jpg",
+      "groupId": "capitales",
+      "price": 200,
+      "mortgage": 100,
+      "rent": [
+        16,
+        80,
+        224,
+        640,
+        928,
+        1200
+      ]
+    },
+    {
+      "id": "plaza-mundial",
+      "type": "free",
+      "name": "Plaza Mundial",
+      "icon": "TreePalm",
+      "description": "Descansa un momento."
+    },
+    {
+      "id": "rio",
+      "type": "property",
+      "name": "Río de Janeiro",
+      "image": "/boards/mundo-clasico/rio.jpg",
+      "groupId": "americas",
+      "price": 220,
+      "mortgage": 110,
+      "rent": [
+        18,
+        90,
+        252,
+        720,
+        1044,
+        1350
+      ]
+    },
+    {
+      "id": "fortuna-2",
+      "type": "card",
+      "name": "Fortuna",
+      "icon": "Sparkles",
+      "deckId": "fortuna"
+    },
+    {
+      "id": "cdmx",
+      "type": "property",
+      "name": "Ciudad de México",
+      "image": "/boards/mundo-clasico/cdmx.jpg",
+      "groupId": "americas",
+      "price": 220,
+      "mortgage": 110,
+      "rent": [
+        18,
+        90,
+        252,
+        720,
+        1044,
+        1350
+      ]
+    },
+    {
+      "id": "toronto",
+      "type": "property",
+      "name": "Toronto",
+      "image": "/boards/mundo-clasico/toronto.jpg",
+      "groupId": "americas",
+      "price": 240,
+      "mortgage": 120,
+      "rent": [
+        19,
+        95,
+        266,
+        760,
+        1102,
+        1425
+      ]
+    },
+    {
+      "id": "jfk",
+      "type": "transport",
+      "name": "Aeropuerto JFK",
+      "image": "/boards/mundo-clasico/jfk.jpg",
+      "groupId": "transport",
+      "price": 200,
+      "mortgage": 100,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ]
+    },
+    {
+      "id": "shanghai",
+      "type": "property",
+      "name": "Shanghái",
+      "image": "/boards/mundo-clasico/shanghai.jpg",
+      "groupId": "asia",
+      "price": 260,
+      "mortgage": 130,
+      "rent": [
+        21,
+        105,
+        294,
+        840,
+        1218,
+        1575
+      ]
+    },
+    {
+      "id": "seul",
+      "type": "property",
+      "name": "Seúl",
+      "image": "/boards/mundo-clasico/seul.jpg",
+      "groupId": "asia",
+      "price": 260,
+      "mortgage": 130,
+      "rent": [
+        21,
+        105,
+        294,
+        840,
+        1218,
+        1575
+      ]
+    },
+    {
+      "id": "agua",
+      "type": "utility",
+      "name": "Agua Potable Mundial",
+      "image": "/boards/mundo-clasico/agua.jpg",
+      "groupId": "utility",
+      "price": 150,
+      "mortgage": 75,
+      "multipliers": [
+        4,
+        10
+      ]
+    },
+    {
+      "id": "singapur",
+      "type": "property",
+      "name": "Singapur",
+      "image": "/boards/mundo-clasico/singapur.jpg",
+      "groupId": "asia",
+      "price": 280,
+      "mortgage": 140,
+      "rent": [
+        22,
+        110,
+        308,
+        880,
+        1276,
+        1650
+      ]
+    },
+    {
+      "id": "a-la-aduana",
+      "type": "go-to-jail",
+      "name": "A la Aduana",
+      "icon": "ShieldAlert",
+      "description": "Ve directo a la Aduana."
+    },
+    {
+      "id": "nueva-york",
+      "type": "property",
+      "name": "Nueva York",
+      "image": "/boards/mundo-clasico/nueva-york.jpg",
+      "groupId": "metropolis",
+      "price": 300,
+      "mortgage": 150,
+      "rent": [
+        24,
+        120,
+        336,
+        960,
+        1392,
+        1800
+      ]
+    },
+    {
+      "id": "tokio",
+      "type": "property",
+      "name": "Tokio",
+      "image": "/boards/mundo-clasico/tokio.jpg",
+      "groupId": "metropolis",
+      "price": 300,
+      "mortgage": 150,
+      "rent": [
+        24,
+        120,
+        336,
+        960,
+        1392,
+        1800
+      ]
+    },
+    {
+      "id": "correo-3",
+      "type": "card",
+      "name": "Correo",
+      "icon": "Mail",
+      "deckId": "correo"
+    },
+    {
+      "id": "los-angeles",
+      "type": "property",
+      "name": "Los Ángeles",
+      "image": "/boards/mundo-clasico/los-angeles.jpg",
+      "groupId": "metropolis",
+      "price": 320,
+      "mortgage": 160,
+      "rent": [
+        26,
+        130,
+        364,
+        1040,
+        1508,
+        1950
+      ]
+    },
+    {
+      "id": "dubai-aeropuerto",
+      "type": "transport",
+      "name": "Aeropuerto de Dubái",
+      "image": "/boards/mundo-clasico/dubai-aeropuerto.png",
+      "groupId": "transport",
+      "price": 200,
+      "mortgage": 100,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ]
+    },
+    {
+      "id": "fortuna-3",
+      "type": "card",
+      "name": "Fortuna",
+      "icon": "Sparkles",
+      "deckId": "fortuna"
+    },
+    {
+      "id": "londres",
+      "type": "property",
+      "name": "Londres",
+      "image": "/boards/mundo-clasico/londres.jpg",
+      "groupId": "lujo",
+      "price": 350,
+      "mortgage": 175,
+      "rent": [
+        28,
+        140,
+        392,
+        1120,
+        1624,
+        2100
+      ]
+    },
+    {
+      "id": "tasa-lujo",
+      "type": "tax",
+      "name": "Tasa de Lujo",
+      "icon": "Diamond",
+      "amount": 100
+    },
+    {
+      "id": "dubai",
+      "type": "property",
+      "name": "Dubái",
+      "image": "/boards/mundo-clasico/dubai.jpg",
+      "groupId": "lujo",
+      "price": 400,
+      "mortgage": 200,
+      "rent": [
+        32,
+        160,
+        448,
+        1280,
+        1856,
+        2400
+      ]
+    }
+  ],
+  "decks": [
+    {
+      "id": "fortuna",
+      "name": "Fortuna",
+      "color": "#f97316",
+      "cards": [
+        {
+          "id": "f1",
+          "text": "Tu documental de viajes gana un premio. Cobra 100.",
+          "action": {
+            "kind": "receive",
+            "amount": 100
+          }
+        },
+        {
+          "id": "f2",
+          "text": "Vuelo directo: avanza hasta la Salida.",
+          "action": {
+            "kind": "move-to",
+            "tileId": "salida"
+          }
+        },
+        {
+          "id": "f3",
+          "text": "Perdiste la conexión. Retrocede tres casillas.",
+          "action": {
+            "kind": "move-by",
+            "steps": -3
+          }
+        },
+        {
+          "id": "f4",
+          "text": "Visado caducado. Ve a la Aduana sin pasar por la Salida.",
+          "action": {
+            "kind": "go-to-jail"
+          }
+        },
+        {
+          "id": "f5",
+          "text": "Exceso de equipaje. Paga 15.",
+          "action": {
+            "kind": "pay",
+            "amount": 15
+          }
+        },
+        {
+          "id": "f6",
+          "text": "Viaja al aeropuerto más cercano. Si tiene dueño, paga el doble.",
+          "action": {
+            "kind": "move-to-nearest",
+            "tileType": "transport",
+            "rentMultiplier": 2
+          }
+        },
+        {
+          "id": "f7",
+          "text": "Escapada a Río de Janeiro: avanza hasta allí.",
+          "action": {
+            "kind": "move-to",
+            "tileId": "rio"
+          }
+        },
+        {
+          "id": "f8",
+          "text": "Reformas en tus hoteles: paga 25 por casa y 100 por hotel.",
+          "action": {
+            "kind": "repairs",
+            "perHouse": 25,
+            "perHotel": 100
+          }
+        },
+        {
+          "id": "f9",
+          "text": "Pasaporte diplomático: sales gratis de la Aduana. Guarda esta carta.",
+          "action": {
+            "kind": "jail-free"
+          }
+        },
+        {
+          "id": "f10",
+          "text": "Organizas la cumbre mundial. Paga 50 a cada jugador.",
+          "action": {
+            "kind": "pay-each-player",
+            "amount": 50
+          }
+        },
+        {
+          "id": "f11",
+          "text": "Tus acciones de aerolíneas suben. Cobra 150.",
+          "action": {
+            "kind": "receive",
+            "amount": 150
+          }
+        },
+        {
+          "id": "f12",
+          "text": "Ve al servicio más cercano y paga el doble.",
+          "action": {
+            "kind": "move-to-nearest",
+            "tileType": "utility",
+            "rentMultiplier": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "correo",
+      "name": "Correo",
+      "color": "#38bdf8",
+      "cards": [
+        {
+          "id": "c1",
+          "text": "Reembolso de una aerolínea. Cobra 200.",
+          "action": {
+            "kind": "receive",
+            "amount": 200
+          }
+        },
+        {
+          "id": "c2",
+          "text": "Seguro de viaje. Paga 50.",
+          "action": {
+            "kind": "pay",
+            "amount": 50
+          }
+        },
+        {
+          "id": "c3",
+          "text": "Vuelta al mundo completada: avanza hasta la Salida.",
+          "action": {
+            "kind": "move-to",
+            "tileId": "salida"
+          }
+        },
+        {
+          "id": "c4",
+          "text": "Es tu cumpleaños en el extranjero. Cobra 10 de cada jugador.",
+          "action": {
+            "kind": "receive-from-each-player",
+            "amount": 10
+          }
+        },
+        {
+          "id": "c5",
+          "text": "Devolución de tasas aeroportuarias. Cobra 20.",
+          "action": {
+            "kind": "receive",
+            "amount": 20
+          }
+        },
+        {
+          "id": "c6",
+          "text": "Inspección aduanera. Ve a la Aduana sin pasar por la Salida.",
+          "action": {
+            "kind": "go-to-jail"
+          }
+        },
+        {
+          "id": "c7",
+          "text": "Carta de embajada: sales gratis de la Aduana. Guarda esta carta.",
+          "action": {
+            "kind": "jail-free"
+          }
+        },
+        {
+          "id": "c8",
+          "text": "Herencia de un tío en Lisboa. Cobra 100.",
+          "action": {
+            "kind": "receive",
+            "amount": 100
+          }
+        },
+        {
+          "id": "c9",
+          "text": "Curso de idiomas. Paga 50.",
+          "action": {
+            "kind": "pay",
+            "amount": 50
+          }
+        },
+        {
+          "id": "c10",
+          "text": "Mantenimiento urbano: paga 40 por casa y 115 por hotel.",
+          "action": {
+            "kind": "repairs",
+            "perHouse": 40,
+            "perHotel": 115
+          }
+        },
+        {
+          "id": "c11",
+          "text": "Vendes tus souvenirs. Cobra 45.",
+          "action": {
+            "kind": "receive",
+            "amount": 45
+          }
+        },
+        {
+          "id": "c12",
+          "text": "Cuota del club de viajeros. Paga 100.",
+          "action": {
+            "kind": "pay",
+            "amount": 100
+          }
+        }
+      ]
+    }
+  ]
+}

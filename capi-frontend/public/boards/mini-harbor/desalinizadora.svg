@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f9f9fe"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#sky)"/><circle cx="257" cy="48" r="18" fill="#ffd66b" opacity="0.9"/>
+<path d="M0 150 L0 140 Q20 113.12257878761739 40 145.541860118974 Q60 100.77435522153974 80 144.4856352522038 Q100 108.86343726236373 120 144.72430106485263 Q140 93.22803936712444 160 144.95149212656543 Q180 107.62204686459154 200 149.84158498467878 Q220 102.17809350043535 240 141.99940901016816 Q260 96.07001032028347 280 141.0512231127359 Q300 93.46278065629303 320 140.7033743406646 Q340 102.3947766078636 360 147.18294500606135 L320 150 Z" fill="#d1d1d6" opacity="0.9"/><polygon points="123.88024306297302,150 167.88024306297302,150 151.88024306297302,60 139.88024306297302,60" fill="#c7c7cc"/>
+        <line x1="115.88024306297302" y1="80" x2="175.88024306297302" y2="80" stroke="#c7c7cc" stroke-width="4"/>
+        <line x1="121.88024306297302" y1="100" x2="169.88024306297302" y2="100" stroke="#c7c7cc" stroke-width="4"/>
+        <path d="M115.88024306297302 80 Q55.88024306297302 110 -10 90" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.5" fill="none"/>
+        <path d="M175.88024306297302 80 Q235.88024306297302 110 330 90" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.5" fill="none"/>
+<rect x="0" y="186" width="320" height="14" fill="#e5e5ea"/>
+</svg>

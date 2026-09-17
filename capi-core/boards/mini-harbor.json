@@ -1,0 +1,472 @@
+{
+  "id": "mini-harbor",
+  "name": "Mini Harbor",
+  "description": "Tablero compacto de 24 casillas para partidas rápidas.",
+  "version": 1,
+  "currency": {
+    "symbol": "ƒ",
+    "code": "HBR"
+  },
+  "theme": {
+    "background": "radial-gradient(1000px 700px at 80% 0%, #0e5a7a 0%, #06253a 55%, #030b14 100%)",
+    "accent": "#34c8ff",
+    "boardColor": "rgba(200, 240, 255, 0.06)"
+  },
+  "defaultRules": {
+    "startingCash": 1000,
+    "passStartBonus": 150,
+    "landStartBonus": 300,
+    "asyncCooldownMs": 12000
+  },
+  "groups": [
+    {
+      "id": "muelle",
+      "name": "Muelles",
+      "color": "#a2845e",
+      "houseCost": 40
+    },
+    {
+      "id": "marina",
+      "name": "Marina",
+      "color": "#64d2ff",
+      "houseCost": 60
+    },
+    {
+      "id": "arrecife",
+      "name": "Arrecife",
+      "color": "#ff6482",
+      "houseCost": 80
+    },
+    {
+      "id": "bahia",
+      "name": "Bahía",
+      "color": "#ffd60a",
+      "houseCost": 100
+    },
+    {
+      "id": "isla",
+      "name": "Islas",
+      "color": "#30d158",
+      "houseCost": 130
+    },
+    {
+      "id": "palacio",
+      "name": "Palacios",
+      "color": "#bf5af2",
+      "houseCost": 160
+    },
+    {
+      "id": "transport",
+      "name": "Ferris",
+      "color": "#c7c7cc"
+    },
+    {
+      "id": "utility",
+      "name": "Servicios",
+      "color": "#e5e5ea"
+    }
+  ],
+  "tiles": [
+    {
+      "id": "muelle-cero",
+      "type": "start",
+      "name": "Muelle Cero",
+      "icon": "Sailboat"
+    },
+    {
+      "id": "gaviota",
+      "type": "property",
+      "name": "Calle Gaviota",
+      "groupId": "muelle",
+      "price": 60,
+      "rent": [
+        5,
+        25,
+        70,
+        200,
+        290,
+        375
+      ],
+      "mortgage": 30,
+      "image": "/boards/mini-harbor/gaviota.svg"
+    },
+    {
+      "id": "ancla",
+      "type": "property",
+      "name": "Calle Ancla",
+      "groupId": "muelle",
+      "price": 70,
+      "rent": [
+        6,
+        30,
+        84,
+        240,
+        348,
+        450
+      ],
+      "mortgage": 35,
+      "image": "/boards/mini-harbor/ancla.svg"
+    },
+    {
+      "id": "marea-1",
+      "type": "card",
+      "name": "Marea",
+      "icon": "Waves",
+      "deckId": "marea"
+    },
+    {
+      "id": "ferry-norte",
+      "type": "transport",
+      "name": "Ferry Norte",
+      "groupId": "transport",
+      "price": 150,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ],
+      "mortgage": 75,
+      "image": "/boards/mini-harbor/ferry-norte.svg"
+    },
+    {
+      "id": "paseo-marino",
+      "type": "property",
+      "name": "Paseo Marino",
+      "groupId": "marina",
+      "price": 100,
+      "rent": [
+        8,
+        40,
+        112,
+        320,
+        464,
+        600
+      ],
+      "mortgage": 50,
+      "image": "/boards/mini-harbor/paseo-marino.svg"
+    },
+    {
+      "id": "aduana",
+      "type": "jail",
+      "name": "Aduana",
+      "icon": "Landmark"
+    },
+    {
+      "id": "muelle-coral",
+      "type": "property",
+      "name": "Muelle Coral",
+      "groupId": "marina",
+      "price": 110,
+      "rent": [
+        9,
+        45,
+        126,
+        360,
+        522,
+        675
+      ],
+      "mortgage": 55,
+      "image": "/boards/mini-harbor/muelle-coral.svg"
+    },
+    {
+      "id": "faro",
+      "type": "utility",
+      "name": "Faro",
+      "groupId": "utility",
+      "price": 120,
+      "multipliers": [
+        4,
+        10
+      ],
+      "mortgage": 60,
+      "image": "/boards/mini-harbor/faro.svg"
+    },
+    {
+      "id": "arrecife-calle",
+      "type": "property",
+      "name": "Calle Arrecife",
+      "groupId": "arrecife",
+      "price": 140,
+      "rent": [
+        11,
+        55,
+        154,
+        440,
+        638,
+        825
+      ],
+      "mortgage": 70,
+      "image": "/boards/mini-harbor/arrecife-calle.svg"
+    },
+    {
+      "id": "playa-dorada",
+      "type": "property",
+      "name": "Playa Dorada",
+      "groupId": "arrecife",
+      "price": 160,
+      "rent": [
+        13,
+        65,
+        182,
+        520,
+        754,
+        975
+      ],
+      "mortgage": 80,
+      "image": "/boards/mini-harbor/playa-dorada.svg"
+    },
+    {
+      "id": "tasa-portuaria",
+      "type": "tax",
+      "name": "Tasa Portuaria",
+      "icon": "Receipt",
+      "amount": 100
+    },
+    {
+      "id": "plaza-puerto",
+      "type": "free",
+      "name": "Plaza del Puerto",
+      "icon": "TreePalm"
+    },
+    {
+      "id": "bahia-tranquila",
+      "type": "property",
+      "name": "Bahía Tranquila",
+      "groupId": "bahia",
+      "price": 180,
+      "rent": [
+        14,
+        70,
+        196,
+        560,
+        812,
+        1050
+      ],
+      "mortgage": 90,
+      "image": "/boards/mini-harbor/bahia-tranquila.svg"
+    },
+    {
+      "id": "marea-2",
+      "type": "card",
+      "name": "Marea",
+      "icon": "Waves",
+      "deckId": "marea"
+    },
+    {
+      "id": "mirador-azul",
+      "type": "property",
+      "name": "Mirador Azul",
+      "groupId": "bahia",
+      "price": 200,
+      "rent": [
+        16,
+        80,
+        224,
+        640,
+        928,
+        1200
+      ],
+      "mortgage": 100,
+      "image": "/boards/mini-harbor/mirador-azul.svg"
+    },
+    {
+      "id": "ferry-sur",
+      "type": "transport",
+      "name": "Ferry Sur",
+      "groupId": "transport",
+      "price": 150,
+      "rent": [
+        25,
+        50,
+        100,
+        200
+      ],
+      "mortgage": 75,
+      "image": "/boards/mini-harbor/ferry-sur.svg"
+    },
+    {
+      "id": "villa-perla",
+      "type": "property",
+      "name": "Villa Perla",
+      "groupId": "isla",
+      "price": 240,
+      "rent": [
+        19,
+        95,
+        266,
+        760,
+        1102,
+        1425
+      ],
+      "mortgage": 120,
+      "image": "/boards/mini-harbor/villa-perla.svg"
+    },
+    {
+      "id": "a-la-aduana",
+      "type": "go-to-jail",
+      "name": "A la Aduana",
+      "icon": "ShieldAlert"
+    },
+    {
+      "id": "isla-esmeralda",
+      "type": "property",
+      "name": "Isla Esmeralda",
+      "groupId": "isla",
+      "price": 260,
+      "rent": [
+        21,
+        105,
+        294,
+        840,
+        1218,
+        1575
+      ],
+      "mortgage": 130,
+      "image": "/boards/mini-harbor/isla-esmeralda.svg"
+    },
+    {
+      "id": "desalinizadora",
+      "type": "utility",
+      "name": "Desalinizadora",
+      "groupId": "utility",
+      "price": 120,
+      "multipliers": [
+        4,
+        10
+      ],
+      "mortgage": 60,
+      "image": "/boards/mini-harbor/desalinizadora.svg"
+    },
+    {
+      "id": "marea-3",
+      "type": "card",
+      "name": "Marea",
+      "icon": "Waves",
+      "deckId": "marea"
+    },
+    {
+      "id": "marina-real",
+      "type": "property",
+      "name": "Marina Real",
+      "groupId": "palacio",
+      "price": 300,
+      "rent": [
+        24,
+        120,
+        336,
+        960,
+        1392,
+        1800
+      ],
+      "mortgage": 150,
+      "image": "/boards/mini-harbor/marina-real.svg"
+    },
+    {
+      "id": "palacio-mar",
+      "type": "property",
+      "name": "Palacio del Mar",
+      "groupId": "palacio",
+      "price": 350,
+      "rent": [
+        28,
+        140,
+        392,
+        1120,
+        1624,
+        2100
+      ],
+      "mortgage": 175,
+      "image": "/boards/mini-harbor/palacio-mar.svg"
+    }
+  ],
+  "decks": [
+    {
+      "id": "marea",
+      "name": "Marea",
+      "color": "#34c8ff",
+      "cards": [
+        {
+          "id": "m1",
+          "text": "La marea trae tesoros. Cobra 80.",
+          "action": {
+            "kind": "receive",
+            "amount": 80
+          }
+        },
+        {
+          "id": "m2",
+          "text": "Tormenta en el puerto. Paga 60.",
+          "action": {
+            "kind": "pay",
+            "amount": 60
+          }
+        },
+        {
+          "id": "m3",
+          "text": "Navega hasta el Muelle Cero.",
+          "action": {
+            "kind": "move-to",
+            "tileId": "muelle-cero"
+          }
+        },
+        {
+          "id": "m4",
+          "text": "Contrabando descubierto. Ve a la Aduana.",
+          "action": {
+            "kind": "go-to-jail"
+          }
+        },
+        {
+          "id": "m5",
+          "text": "Salvoconducto de la Aduana. Guarda esta carta.",
+          "action": {
+            "kind": "jail-free"
+          }
+        },
+        {
+          "id": "m6",
+          "text": "Toma el ferry más cercano. Paga renta doble si tiene dueño.",
+          "action": {
+            "kind": "move-to-nearest",
+            "tileType": "transport",
+            "rentMultiplier": 2
+          }
+        },
+        {
+          "id": "m7",
+          "text": "Fiesta de pescadores. Cobra 20 de cada jugador.",
+          "action": {
+            "kind": "receive-from-each-player",
+            "amount": 20
+          }
+        },
+        {
+          "id": "m8",
+          "text": "Retrocede dos casillas.",
+          "action": {
+            "kind": "move-by",
+            "steps": -2
+          }
+        },
+        {
+          "id": "m9",
+          "text": "Mantenimiento de muelles: paga 20 por casa y 60 por hotel.",
+          "action": {
+            "kind": "repairs",
+            "perHouse": 20,
+            "perHotel": 60
+          }
+        },
+        {
+          "id": "m10",
+          "text": "Vientos favorables. Avanza tres casillas.",
+          "action": {
+            "kind": "move-by",
+            "steps": 3
+          }
+        }
+      ]
+    }
+  ]
+}

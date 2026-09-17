@@ -1,0 +1,105 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Game {
+  id          String    @id
+  boardId     String
+  mode        String
+  phase       String
+  state       String
+  history     String    @default("[]")
+  chat        String    @default("[]")
+  isPublic    Boolean   @default(false)
+  competitive Boolean   @default(false)
+  players     Int       @default(0)
+  maxPlayers  Int       @default(8)
+  settledAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  sessions PlayerSession[]
+  results  GameResult[]
+
+  @@index([phase])
+  @@index([isPublic, phase])
+}
+
+model PlayerSession {
+  secret    String   @id
+  gameId    String
+  playerId  String
+  userId    String?
+  createdAt DateTime @default(now())
+
+  game Game  @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@unique([gameId, playerId])
+  @@index([userId])
+}
+
+model User {
+  id               String    @id
+  email            String    @unique
+  name             String
+  totalCash        Int       @default(0)
+  gamesPlayed      Int       @default(0)
+  wins             Int       @default(0)
+  losses           Int       @default(0)
+  premiumUntil     DateTime?
+  stripeCustomerId String?   @unique
+  createdAt        DateTime  @default(now())
+
+  sessions       AuthSession[]
+  playerSessions PlayerSession[]
+  results        GameResult[]
+
+  @@index([totalCash])
+  @@index([wins])
+}
+
+model LoginCode {
+  id         String    @id
+  email      String
+  codeHash   String
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([email, createdAt])
+}
+
+model AuthSession {
+  token      String   @id
+  userId     String
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+  lastSeenAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model GameResult {
+  id        String   @id
+  gameId    String
+  userId    String
+  playerId  String
+  cash      Int
+  rank      Int
+  createdAt DateTime @default(now())
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, userId])
+}

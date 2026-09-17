@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4a3aa8"/>
+      <stop offset="1" stop-color="#0f1024"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.06"/>
+    </linearGradient>
+    <linearGradient id="face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#d9d6ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="24" y="24" width="464" height="464" rx="96" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.28" stroke-width="4"/>
+  <g transform="translate(256 268) rotate(-12)">
+    <rect x="-118" y="-118" width="236" height="236" rx="52" fill="url(#face)" stroke="#7c5cff" stroke-width="14" stroke-linejoin="round"/>
+    <g fill="#5b3fe6">
+      <circle cx="-60" cy="-60" r="24"/>
+      <circle cx="60" cy="-60" r="24"/>
+      <circle cx="0" cy="0" r="24"/>
+      <circle cx="-60" cy="60" r="24"/>
+      <circle cx="60" cy="60" r="24"/>
+    </g>
+  </g>
+</svg>

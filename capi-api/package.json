@@ -1,0 +1,31 @@
+{
+  "name": "capi-api",
+  "version": "0.1.0",
+  "description": "Capi game server: REST + WebSocket on Bun/Elysia, persisted with Prisma.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:setup": "prisma generate && prisma db push"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.2.0",
+    "@elysiajs/swagger": "^1.2.0",
+    "@libsql/client": "^0.18.0",
+    "@prisma/adapter-libsql": "^6.19.0",
+    "@prisma/client": "^6.4.0",
+    "capi-core": "workspace:*",
+    "elysia": "^1.2.0",
+    "resend": "^6.28.1",
+    "stripe": "^22.6.2"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.0",
+    "prisma": "^6.4.0",
+    "typescript": "^5.6.0"
+  }
+}
