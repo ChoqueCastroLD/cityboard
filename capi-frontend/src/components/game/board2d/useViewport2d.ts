@@ -9,6 +9,7 @@ export interface Viewport2D {
 const MIN_ZOOM = 0.7;
 const MAX_ZOOM = 3.5;
 const DRAG_THRESHOLD = 4;
+const OVERSCROLL = 0.75;
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
@@ -20,14 +21,17 @@ export function useViewport2d(frameRef: RefObject<HTMLElement | null>, boardSize
 
   const reset = useCallback(() => setViewport({ x: 0, y: 0, zoom: 1 }), []);
 
-  // el tablero nunca puede salirse del encuadre: sin zoom queda centrado y fijo
+  // se puede arrastrar bastante más allá de las esquinas; el tope solo evita perder
+  // el tablero de vista del todo
   const limit = useCallback(
     (x: number, y: number, zoom: number): { x: number; y: number } => {
       const frame = frameRef.current?.getBoundingClientRect();
       const board = boardSize();
       if (!frame || !board) return { x, y };
-      const maxX = Math.max(0, (board.width * zoom - frame.width) / 2);
-      const maxY = Math.max(0, (board.height * zoom - frame.height) / 2);
+      const slackX = frame.width * OVERSCROLL;
+      const slackY = frame.height * OVERSCROLL;
+      const maxX = Math.max(0, (board.width * zoom - frame.width) / 2) + slackX;
+      const maxY = Math.max(0, (board.height * zoom - frame.height) / 2) + slackY;
       return { x: clamp(x, -maxX, maxX), y: clamp(y, -maxY, maxY) };
     },
     [boardSize, frameRef],
