@@ -2,7 +2,7 @@ import type { BoardDefinition, GameEvent } from 'capi-core';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { GameClient } from '../../client/GameClient';
 import { useGameState } from '../../hooks/useGameClient';
-import type { CardDrawnEvent, IBoardScene, ScreenPoint } from '../../three/types';
+import type { CameraMode, CardDrawnEvent, IBoardScene, ScreenPoint } from '../../three/types';
 import { Dice2D, type Throw2D } from './board2d/Dice2D';
 import { buildBoardLayout2D, seatOffset } from './board2d/layout2d';
 import { Tile2D } from './board2d/Tile2D';
@@ -19,6 +19,7 @@ interface Props {
   highlight: string[];
   focusTileId: string | null;
   focusPlayerId: string | null;
+  cameraMode: CameraMode;
   onTileClick: (tileId: string) => void;
   onTokenClick: (playerId: string) => void;
   onTokenHover: (playerId: string | null, at: ScreenPoint | null) => void;
@@ -31,7 +32,7 @@ interface Props {
 const sleep = (ms: number) => new Promise<void>((resolve) => window.setTimeout(resolve, ms));
 
 export function Board2D(props: Props) {
-  const { client, board, controlledId, highlight, focusTileId, focusPlayerId } = props;
+  const { client, board, controlledId, highlight, focusTileId, focusPlayerId, cameraMode } = props;
   const { state } = useGameState(client);
   const layout = useMemo(() => buildBoardLayout2D(board), [board]);
   const callbacks = useRef(props);
@@ -74,7 +75,17 @@ export function Board2D(props: Props) {
   layoutRef.current = layout;
   const boxRef = useRef<{ width: number; height: number } | null>(null);
 
-  const { viewport, dragging, reset, handlers, consumedClick } = useViewport2d(frameRef, useCallback(() => boxRef.current, []));
+  const { viewport, dragging, reset, centerOn, handlers, consumedClick } = useViewport2d(frameRef, useCallback(() => boxRef.current, []));
+
+  const centerOnPlayer = useCallback(
+    (playerId: string | null, minZoom?: number) => {
+      if (!playerId) return;
+      const index = positionsRef.current[playerId] ?? client.getState().players.find((p) => p.id === playerId)?.position;
+      const rect = index === undefined ? undefined : layoutRef.current.byIndex.get(index);
+      if (rect) centerOn(rect.centerX, rect.centerY, minZoom);
+    },
+    [centerOn, client],
+  );
 
   const throwDice = useCallback(
     (playerId: string, dice: [number, number], settled: Promise<void>) => {
@@ -144,8 +155,11 @@ export function Board2D(props: Props) {
         const rect = element.getBoundingClientRect();
         return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
       },
-      focusTile: () => undefined,
-      focusPlayer: () => undefined,
+      focusTile: (tileId: string | null) => {
+        const rect = tileId ? layoutRef.current.byId.get(tileId) : undefined;
+        if (rect) centerOn(rect.centerX, rect.centerY, 1.5);
+      },
+      focusPlayer: (playerId: string | null) => centerOnPlayer(playerId, 1.5),
       highlightTiles: () => undefined,
       setControlledPlayer: () => undefined,
       setCameraMode: () => undefined,
@@ -163,7 +177,23 @@ export function Board2D(props: Props) {
     };
     callbacks.current.onScene(scene);
     return () => callbacks.current.onScene(null);
-  }, [client]);
+  }, [client, centerOn, centerOnPlayer]);
+
+  useEffect(() => {
+    if (focusPlayerId) centerOnPlayer(focusPlayerId, 1.5);
+  }, [focusPlayerId, centerOnPlayer]);
+
+  useEffect(() => {
+    const rect = focusTileId ? layout.byId.get(focusTileId) : undefined;
+    if (rect) centerOn(rect.centerX, rect.centerY, 1.5);
+  }, [focusTileId, layout, centerOn]);
+
+  const followId = cameraMode === 'locked' ? null : cameraMode === 'player' ? controlledId : state.activePlayerId;
+  const followIndex = followId ? positions[followId] : undefined;
+  useEffect(() => {
+    if (!followId || focusPlayerId || focusTileId) return;
+    centerOnPlayer(followId);
+  }, [followId, followIndex, focusPlayerId, focusTileId, centerOnPlayer]);
 
   useEffect(() => {
     const play = (events: GameEvent[]) => {
@@ -279,7 +309,7 @@ export function Board2D(props: Props) {
               owner={state.properties[tile.id]}
               highlighted={highlighted.has(tile.id)}
               focused={focusTileId === tile.id}
-              compact={(box?.width ?? 0) < 520}
+              compact={(box?.width ?? 0) * viewport.zoom < 520}
               onClick={(id) => !consumedClick() && callbacks.current.onTileClick(id)}
               onHover={(id, at) => callbacks.current.onTileHover(id, at)}
             />

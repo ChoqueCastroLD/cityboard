@@ -178,6 +178,7 @@ export function GameScreen({ client, onLeave }: Props) {
             highlight={highlight}
             focusTileId={dialog?.kind === 'tile' ? dialog.tileId : null}
             focusPlayerId={focusedPlayerId}
+            cameraMode={cameraMode}
             onTileClick={(tileId) => setDialog({ kind: 'tile', tileId })}
             onTokenClick={(playerId) => setFocusedPlayerId((current) => (current === playerId ? null : playerId))}
             onTokenHover={(playerId, at) => setHover(playerId && at ? { playerId, at } : null)}

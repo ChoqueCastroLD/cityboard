@@ -56,9 +56,9 @@ export const Tile2D = memo(function Tile2D({ tile, rect, board, state, owner, hi
       >
         {tile.name}
       </span>
-      {ownable(tile) && (
+      {ownable(tile) && !compact && (
         <span className={`flex w-full items-center gap-[0.25em] font-mono text-[0.8em] text-muted tabular-nums ${landscape ? '' : 'justify-center'}`}>
-          {group?.image && !compact && (
+          {group?.image && (
             <img src={group.image} alt="" className="h-[0.8em] w-[1.2em] shrink-0 rounded-[0.1em] object-cover" loading="lazy" draggable={false} />
           )}
           <span>
@@ -98,7 +98,7 @@ export const Tile2D = memo(function Tile2D({ tile, rect, board, state, owner, hi
             : `flex-col justify-center px-[7%] ${rect.side === 'top' ? 'pt-[16%] pb-[7%]' : 'pt-[7%] pb-[16%]'}`
         }`}
       >
-        {!compact && media}
+        {media}
         {label}
       </span>
 

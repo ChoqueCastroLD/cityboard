@@ -115,7 +115,7 @@ export function Hud({ backend, boardView, onBoardView }: HudProps) {
           <Settings2 size={16} />
         </button>
         <BoardViewButton view={boardView} onChange={onBoardView} />
-        {boardView === '3d' && <CameraModeButton mode={cameraMode} onChange={setCameraMode} />}
+        <CameraModeButton mode={cameraMode} onChange={setCameraMode} />
         <button className="btn btn-icon h-9 w-9" onClick={() => setLeaving(true)} aria-label="Salir" title="Salir">
           <LogOut size={16} />
         </button>
