@@ -5,6 +5,7 @@ export class MemoryGameRepository implements GameRepository {
   private readonly games = new Map<string, StoredGame>();
   private readonly sessions = new Map<string, PlayerSession>();
   private readonly chats = new Map<string, ChatMessage[]>();
+  private readonly disconnects = new Map<string, Record<string, number>>();
   readonly results: GameResultRecord[] = [];
 
   async insert(state: GameState): Promise<void> {
@@ -19,6 +20,14 @@ export class MemoryGameRepository implements GameRepository {
   async save(state: GameState, history: GameEvent[]): Promise<void> {
     const settledAt = this.games.get(state.id)?.settledAt ?? null;
     this.games.set(state.id, { state: structuredClone(state), history: structuredClone(history), settledAt });
+  }
+
+  async loadDisconnects(gameId: string): Promise<Record<string, number>> {
+    return { ...(this.disconnects.get(gameId) ?? {}) };
+  }
+
+  async saveDisconnects(gameId: string, deadlines: Record<string, number>): Promise<void> {
+    this.disconnects.set(gameId, { ...deadlines });
   }
 
   async loadChat(gameId: string): Promise<ChatMessage[]> {

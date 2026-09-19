@@ -1,0 +1,60 @@
+services:
+  capi-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: capi-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      DATABASE_URL: "file:/data/capi.db"
+      CORS_ORIGINS: "http://capichan.com,https://capichan.com"
+      APP_URL: "http://capichan.com"
+      AUTH_PEPPER: "${AUTH_PEPPER}"
+      TICK_MS: "1000"
+      RESEND_API_KEY: "${RESEND_API_KEY}"
+      RESEND_FROM: "${RESEND_FROM}"
+    volumes:
+      - capi-data:/data
+    networks: [capi]
+    healthcheck:
+      test: ["CMD", "bun", "-e", "fetch('http://127.0.0.1:3000/api/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  capi-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: capi-web
+    restart: unless-stopped
+    depends_on:
+      capi-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks: [capi, coolify]
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=coolify
+      - traefik.http.routers.capichan.rule=Host(`capichan.com`)
+      - traefik.http.routers.capichan.entrypoints=http
+      - traefik.http.routers.capichan-https.rule=Host(`capichan.com`)
+      - traefik.http.routers.capichan-https.entrypoints=https
+      - traefik.http.routers.capichan-https.tls=true
+      - traefik.http.routers.capichan-https.tls.certresolver=letsencrypt
+      - traefik.http.services.capichan.loadbalancer.server.port=80
+
+volumes:
+  capi-data:
+
+networks:
+  capi:
+  coolify:
+    external: true

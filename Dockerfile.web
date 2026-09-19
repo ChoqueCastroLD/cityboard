@@ -1,0 +1,15 @@
+FROM oven/bun:1-debian AS build
+WORKDIR /app
+COPY package.json bun.lock tsconfig.base.json ./
+COPY capi-core/package.json capi-core/
+COPY capi-api/package.json capi-api/
+COPY capi-frontend/package.json capi-frontend/
+RUN bun install --frozen-lockfile
+COPY capi-core capi-core
+COPY capi-frontend capi-frontend
+ENV VITE_API_URL=""
+RUN cd capi-frontend && bunx vite build
+
+FROM nginx:1.27-alpine
+COPY --from=build /app/capi-frontend/dist /usr/share/nginx/html
+COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf

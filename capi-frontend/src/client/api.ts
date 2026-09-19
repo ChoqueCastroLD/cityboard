@@ -116,7 +116,7 @@ export const api = {
   },
 };
 
-export function wsUrl(gameId: string, secret: string | null): string {
+export function wsUrl(gameId: string): string {
   const base = API_URL.replace(/^http/, 'ws');
-  return `${base}/ws/games/${gameId}${secret ? `?secret=${encodeURIComponent(secret)}` : ''}`;
+  return `${base}/ws/games/${gameId}`;
 }

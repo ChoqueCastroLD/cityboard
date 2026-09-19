@@ -11,7 +11,7 @@ export const config = {
   appUrl: env.APP_URL ?? 'http://localhost:5173',
   authPepper: env.AUTH_PEPPER ?? 'capi-dev-pepper',
   resendApiKey: env.RESEND_API_KEY ?? null,
-  resendFrom: env.RESEND_FROM ?? 'Capi <onboarding@resend.dev>',
+  resendFrom: env.RESEND_FROM ?? 'Capichan <onboarding@resend.dev>',
   stripeSecretKey: env.STRIPE_SECRET_KEY ?? null,
   stripePriceId: env.STRIPE_PRICE_ID ?? null,
   stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET ?? null,

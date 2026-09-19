@@ -10,7 +10,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
-    "db:setup": "prisma generate && prisma db push"
+    "db:setup": "prisma generate && prisma db push",
+    "smoke": "bun run scripts/smoke.ts"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.2.0",

@@ -35,6 +35,8 @@ export interface GameRepository {
   find(id: string): Promise<StoredGame | null>;
   save(state: GameState, history: GameEvent[]): Promise<void>;
   loadChat(gameId: string): Promise<ChatMessage[]>;
+  loadDisconnects(gameId: string): Promise<Record<string, number>>;
+  saveDisconnects(gameId: string, deadlines: Record<string, number>): Promise<void>;
   saveChat(gameId: string, messages: ChatMessage[]): Promise<void>;
   findPlaying(): Promise<GameState[]>;
   findPublic(): Promise<GameState[]>;

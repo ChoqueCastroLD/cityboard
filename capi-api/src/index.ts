@@ -35,4 +35,4 @@ const notes = [
   mailer.configured ? 'mail: resend' : 'mail: console (RESEND_API_KEY not set)',
   billing.configured ? 'billing: stripe' : 'billing: not configured',
 ];
-console.log(`Capi API listening on http://localhost:${config.port} (${boards.list().length} boards, ${notes.join(', ')})`);
+console.log(`Capichan API listening on http://localhost:${config.port} (${boards.list().length} boards, ${notes.join(', ')})`);

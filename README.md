@@ -1,4 +1,4 @@
-# Capi
+# Capichan
 
 Motor open source (MIT) de juegos de mesa de compraventa de propiedades. No es un clon: no usa nombres, reglas oficiales ni estilo visual de ningún juego comercial. Cada **mapa es un JSON** (nombres de calles, precios, imágenes, mazos de cartas, tema) y el motor es genérico, así que cambiar de mapa es cambiar de archivo.
 
@@ -122,7 +122,7 @@ REST (`/api`):
 | POST | `/games/:id/join` `{ name, color?, token? }` | Devuelve `playerId` y `secret`. Con `X-Account: Bearer <token>` vincula la cuenta al asiento |
 | POST | `/games/:id/commands` (`Authorization: Bearer <secret>`) | Aplica un comando; errores `400 { error: { code, message } }` |
 
-WebSocket `/ws/games/:id?secret=…` (sin secret = espectador). Cliente → `{ type: 'command', requestId, command }`; servidor → `{ type: 'state', game, events }` tras cada comando de cualquiera, o `{ type: 'error', requestId, error }`.
+WebSocket `/ws/games/:id` (se entra como espectador; para jugar, primer mensaje `{ type: 'auth', secret }` tras conectar). Cliente → `{ type: 'command', requestId, command }`; servidor → `{ type: 'state', game, events }` tras cada comando de cualquiera, o `{ type: 'error', requestId, error }`.
 
 ## Desconexiones y anfitrión
 

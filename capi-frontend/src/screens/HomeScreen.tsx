@@ -82,7 +82,7 @@ export function HomeScreen() {
     <div className="scrollbar-thin safe-x flex h-full flex-col items-center overflow-y-auto bg-surface text-ink pt-safe-top pb-safe-bottom md:justify-center md:overflow-hidden">
       <div className="flex w-full max-w-6xl flex-col gap-6 px-1 pt-5 pb-10 md:max-h-full md:min-h-0 md:gap-8 md:py-6">
         <header className="flex items-center gap-3">
-          <span className="font-display text-2xl font-bold tracking-tight">Capi</span>
+          <span className="font-display text-2xl font-bold tracking-tight">Capichan</span>
           <div className="ml-auto flex items-center gap-2.5">
             <ThemeToggle />
             <button className="btn btn-primary h-10 shrink-0 px-4" disabled={busy || !serverOk} onMouseEnter={prefetchRoom} onFocus={prefetchRoom} onClick={createRoom}>

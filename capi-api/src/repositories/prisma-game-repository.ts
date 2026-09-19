@@ -40,6 +40,15 @@ export class PrismaGameRepository implements GameRepository {
     });
   }
 
+  async loadDisconnects(gameId: string): Promise<Record<string, number>> {
+    const row = await this.prisma.game.findUnique({ where: { id: gameId }, select: { disconnects: true } });
+    return row ? (JSON.parse(row.disconnects) as Record<string, number>) : {};
+  }
+
+  async saveDisconnects(gameId: string, deadlines: Record<string, number>): Promise<void> {
+    await this.prisma.game.update({ where: { id: gameId }, data: { disconnects: JSON.stringify(deadlines) } }).catch(() => undefined);
+  }
+
   async loadChat(gameId: string): Promise<ChatMessage[]> {
     const row = await this.prisma.game.findUnique({ where: { id: gameId }, select: { chat: true } });
     return row ? (JSON.parse(row.chat) as ChatMessage[]) : [];

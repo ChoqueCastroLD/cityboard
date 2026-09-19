@@ -168,10 +168,11 @@ export class RemoteGameClient extends Observable implements GameClient {
 
   private connect(): void {
     if (this.closed) return;
-    const socket = new WebSocket(wsUrl(this.gameId, this.secret));
+    const socket = new WebSocket(wsUrl(this.gameId));
     this.socket = socket;
     socket.onopen = () => {
       this.retryMs = 1000;
+      if (this.secret) socket.send(JSON.stringify({ type: 'auth', secret: this.secret }));
     };
     socket.onmessage = (event) => this.receive(JSON.parse(String(event.data)) as ServerMessage);
     socket.onclose = () => {

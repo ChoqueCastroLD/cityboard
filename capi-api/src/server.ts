@@ -75,7 +75,7 @@ export function buildServer({ boards, games, auth, billing, leaderboard, chat }:
     .use(mediaRoutes())
     .use(wsGateway(games, chat));
 
-  return config.production ? app : app.use(swagger({ path: '/docs', documentation: { info: { title: 'Capi API', version: '0.2.0' } } }));
+  return config.production ? app : app.use(swagger({ path: '/docs', documentation: { info: { title: 'Capichan API', version: '0.2.0' } } }));
 }
 
 export type CapiServer = ReturnType<typeof buildServer>;

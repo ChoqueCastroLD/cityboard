@@ -18,6 +18,13 @@ function resolveSqliteUrl(url: string): string {
   return pathToFileURL(resolve(import.meta.dir, '../prisma', path)).href;
 }
 
+async function applySqlitePragmas(prisma: { $executeRawUnsafe(sql: string): Promise<unknown> }, url: string): Promise<void> {
+  if (!url.startsWith('file:')) return;
+  for (const pragma of ['PRAGMA journal_mode = WAL', 'PRAGMA busy_timeout = 5000', 'PRAGMA synchronous = NORMAL', 'PRAGMA foreign_keys = ON']) {
+    await prisma.$executeRawUnsafe(pragma).catch((e: unknown) => console.warn(`[db] ${pragma} failed`, e));
+  }
+}
+
 export function createMemoryRepositories(): Repositories {
   return { games: new MemoryGameRepository(), users: new MemoryUserRepository() };
 }
@@ -34,5 +41,6 @@ export async function createRepositories(): Promise<Repositories> {
 
   const prisma = new PrismaClient({ adapter: new PrismaLibSQL({ url: resolveSqliteUrl(config.databaseUrl) }) });
   await prisma.$connect();
+  await applySqlitePragmas(prisma, config.databaseUrl);
   return { games: new PrismaGameRepository(prisma), users: new PrismaUserRepository(prisma) };
 }

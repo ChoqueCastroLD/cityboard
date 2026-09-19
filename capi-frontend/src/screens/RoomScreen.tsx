@@ -79,7 +79,7 @@ function JoinForm({ code, onJoined, onHome }: { code: string; onJoined: (client:
     <div className="safe-x flex h-full flex-col bg-surface text-ink pt-safe-top pb-safe-bottom">
       <header className="flex w-full items-center gap-3 px-1 pt-5 md:pt-7">
         <button className="font-display text-2xl font-bold tracking-tight" onClick={onHome}>
-          Capi
+          Capichan
         </button>
         <div className="ml-auto flex items-center gap-2.5">
           <ThemeToggle />

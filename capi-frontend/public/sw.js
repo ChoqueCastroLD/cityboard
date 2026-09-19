@@ -1,4 +1,4 @@
-const CACHE = 'capi-static-v1';
+const CACHE = 'capichan-static-v1';
 
 const isStaticAsset = (url) => url.origin === self.location.origin && (url.pathname.startsWith('/boards/') || url.pathname.startsWith('/assets/') || /\.(png|svg|webmanifest|woff2?)$/.test(url.pathname));
 

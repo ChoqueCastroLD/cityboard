@@ -16,6 +16,7 @@ model Game {
   state       String
   history     String    @default("[]")
   chat        String    @default("[]")
+  disconnects String    @default("{}")
   isPublic    Boolean   @default(false)
   competitive Boolean   @default(false)
   players     Int       @default(0)

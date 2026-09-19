@@ -177,6 +177,18 @@ export class GameService {
     };
   }
 
+  loadDisconnects(gameId: string): Promise<Record<string, number>> {
+    return this.repo.loadDisconnects(gameId);
+  }
+
+  saveDisconnects(gameId: string, deadlines: Record<string, number>): Promise<void> {
+    return this.repo.saveDisconnects(gameId, deadlines);
+  }
+
+  playingGames(): Promise<GameState[]> {
+    return this.repo.findPlaying();
+  }
+
   noteRoomActive(gameId: string): void {
     this.emptySince.delete(gameId);
     this.occupied.add(gameId);

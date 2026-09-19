@@ -61,6 +61,8 @@ interface Watch {
   deadline: number;
 }
 
+const RESTORE_GRACE_MS = 60_000;
+
 class DisconnectWatch {
   private readonly watches = new Map<string, Watch>();
 
@@ -69,6 +71,37 @@ class DisconnectWatch {
     private readonly rooms: Rooms,
     private readonly onExpire: (gameId: string) => void,
   ) {}
+
+  private persist(gameId: string): void {
+    void this.games.saveDisconnects(gameId, this.deadlines(gameId)).catch((e) => console.error('[disconnects]', gameId, e));
+  }
+
+  async restore(): Promise<void> {
+    const games = await this.games.playingGames().catch(() => []);
+    for (const game of games) {
+      const stored = await this.games.loadDisconnects(game.id).catch(() => ({}));
+      for (const [playerId, deadline] of Object.entries(stored)) {
+        const player = game.players.find((p) => p.id === playerId);
+        if (!player || player.bankrupt || player.spectator) continue;
+        this.arm(game.id, playerId, Math.max(deadline - Date.now(), RESTORE_GRACE_MS));
+      }
+      if (Object.keys(stored).length > 0) this.rooms.broadcastPresence(game.id, this.deadlines(game.id));
+    }
+  }
+
+  private arm(gameId: string, playerId: string, ms: number): void {
+    const key = this.key(gameId, playerId);
+    const timer = setTimeout(() => {
+      this.watches.delete(key);
+      this.persist(gameId);
+      if (this.rooms.isConnected(gameId, playerId)) return;
+      void this.games
+        .executeSystem(gameId, { type: 'FORFEIT', targetId: playerId, reason: 'disconnected' })
+        .catch((e) => console.error('[forfeit]', gameId, e))
+        .finally(() => this.onExpire(gameId));
+    }, ms);
+    this.watches.set(key, { timer, deadline: Date.now() + ms });
+  }
 
   private key(gameId: string, playerId: string): string {
     return `${gameId}:${playerId}`;
@@ -88,6 +121,7 @@ class DisconnectWatch {
     if (!watch) return;
     clearTimeout(watch.timer);
     this.watches.delete(this.key(gameId, playerId));
+    this.persist(gameId);
   }
 
   async start(gameId: string, playerId: string): Promise<void> {
@@ -99,15 +133,8 @@ class DisconnectWatch {
     if (!player || player.bankrupt || player.spectator) return;
     if (this.rooms.isConnected(gameId, playerId) || this.watches.has(key)) return;
     const graceMs = game.rules.competitive ? config.disconnectForfeitMs : config.disconnectGraceMs;
-    const timer = setTimeout(() => {
-      this.watches.delete(key);
-      if (this.rooms.isConnected(gameId, playerId)) return;
-      void this.games
-        .executeSystem(gameId, { type: 'FORFEIT', targetId: playerId, reason: 'disconnected' })
-        .catch((e) => console.error('[forfeit]', gameId, e))
-        .finally(() => this.onExpire(gameId));
-    }, graceMs);
-    this.watches.set(key, { timer, deadline: Date.now() + graceMs });
+    this.arm(gameId, playerId, graceMs);
+    this.persist(gameId);
   }
 }
 
@@ -115,6 +142,7 @@ export const wsGateway = (games: GameService, chat: ChatService) => {
   const rooms = new Rooms();
   const watch = new DisconnectWatch(games, rooms, (gameId) => rooms.broadcastPresence(gameId, watch.deadlines(gameId)));
   const socketGame = new Map<string, string>();
+  void watch.restore().catch((e) => console.error('[disconnects] restore', e));
   const watchAbsent = async (gameId: string, game: GameState): Promise<void> => {
     const absent = game.players.filter((p) => !p.spectator && !p.bankrupt && !rooms.isConnected(gameId, p.id));
     if (absent.length === 0) return;
@@ -124,8 +152,8 @@ export const wsGateway = (games: GameService, chat: ChatService) => {
 
   return new Elysia({ name: 'ws' }).ws('/ws/games/:id', {
     params: t.Object({ id: t.String({ maxLength: 12 }) }),
-    query: t.Object({ secret: t.Optional(t.String({ maxLength: 64 })) }),
     body: t.Union([
+      t.Object({ type: t.Literal('auth'), requestId: t.Optional(t.String({ maxLength: 64 })), secret: t.String({ maxLength: 64 }) }),
       t.Object({ type: t.Literal('command'), requestId: t.Optional(t.String({ maxLength: 64 })), command: t.Object({ type: t.String({ maxLength: 32 }) }, { additionalProperties: true }) }),
       t.Object({ type: t.Literal('ping') }),
       t.Object({ type: t.Literal('chat'), requestId: t.Optional(t.String({ maxLength: 64 })), text: t.String({ maxLength: 600 }) }),
@@ -134,32 +162,59 @@ export const wsGateway = (games: GameService, chat: ChatService) => {
 
     async open(ws) {
       const gameId = ws.data.params.id.toUpperCase();
+      let unsubscribe = () => {};
+      rooms.add(gameId, ws.id, { send: (payload) => ws.send(payload), actor: null, unsubscribe: () => unsubscribe() });
+      socketGame.set(ws.id, gameId);
       try {
-        const actor = ws.data.query.secret ? await games.authenticate(gameId, ws.data.query.secret) : null;
         const { game, history } = await games.get(gameId);
-        const unsubscribe = games.subscribe(gameId, (update) => {
+        unsubscribe = games.subscribe(gameId, (update) => {
           ws.send({ type: 'state', ...update });
           if (update.events.some((e) => e.type === 'GAME_STARTED')) void watchAbsent(gameId, update.game);
         });
-        rooms.add(gameId, ws.id, { send: (payload) => ws.send(payload), actor, unsubscribe });
-        socketGame.set(ws.id, gameId);
-        if (actor) games.noteRoomActive(gameId);
-        if (actor) watch.cancel(gameId, actor.playerId);
         ws.send({ type: 'state', game, events: [], history });
         ws.send({ type: 'chat-history', messages: await chat.history(gameId) });
         rooms.broadcastPresence(gameId, watch.deadlines(gameId));
       } catch (e) {
+        rooms.remove(gameId, ws.id);
+        socketGame.delete(ws.id);
         ws.send({ type: 'error', error: toError(e) });
         ws.close();
       }
     },
 
     async message(ws, message) {
-      if (message.type === 'ping') return ws.send({ type: 'pong' });
+      if (message.type === 'ping') {
+        ws.send({ type: 'pong' });
+        return;
+      }
       const gameId = socketGame.get(ws.id);
+      if (message.type === 'auth') {
+        const connection = gameId ? rooms.connection(gameId, ws.id) : undefined;
+        if (!gameId || !connection) {
+          ws.send({ type: 'error', requestId: message.requestId, error: { code: 'NOT_FOUND', message: 'connection is gone' } });
+          return;
+        }
+        try {
+          const authenticated = await games.authenticate(gameId, message.secret);
+          connection.actor = authenticated;
+          games.noteRoomActive(gameId);
+          watch.cancel(gameId, authenticated.playerId);
+          if (message.requestId) ws.send({ type: 'ack', requestId: message.requestId });
+          rooms.broadcastPresence(gameId, watch.deadlines(gameId));
+        } catch (e) {
+          ws.send({ type: 'error', requestId: message.requestId, error: toError(e) });
+        }
+        return;
+      }
       const actor = gameId ? rooms.connection(gameId, ws.id)?.actor : null;
-      if (!gameId || !actor) return ws.send({ type: 'error', requestId: 'requestId' in message ? message.requestId : undefined, error: { code: 'UNAUTHORIZED', message: 'spectators cannot play' } });
-      if (message.type === 'rtc') return rooms.sendToPlayer(gameId, message.to, { type: 'rtc', from: actor.playerId, payload: message.payload });
+      if (!gameId || !actor) {
+        ws.send({ type: 'error', requestId: 'requestId' in message ? message.requestId : undefined, error: { code: 'UNAUTHORIZED', message: 'spectators cannot play' } });
+        return;
+      }
+      if (message.type === 'rtc') {
+        rooms.sendToPlayer(gameId, message.to, { type: 'rtc', from: actor.playerId, payload: message.payload });
+        return;
+      }
       if (message.type === 'chat') {
         try {
           const { game } = await games.get(gameId);

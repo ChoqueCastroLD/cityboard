@@ -1,0 +1,17 @@
+FROM oven/bun:1-debian
+WORKDIR /app
+
+COPY package.json bun.lock tsconfig.base.json ./
+COPY capi-core/package.json capi-core/
+COPY capi-api/package.json capi-api/
+COPY capi-frontend/package.json capi-frontend/
+RUN bun install --frozen-lockfile
+
+COPY capi-core capi-core
+COPY capi-api capi-api
+
+RUN cd capi-api && bunx prisma generate
+
+ENV NODE_ENV=production PORT=3000
+EXPOSE 3000
+CMD ["sh", "-c", "cd /app/capi-api && bunx prisma db push --skip-generate --accept-data-loss && exec bun run src/index.ts"]

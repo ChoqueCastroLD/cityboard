@@ -158,7 +158,7 @@ export function LobbyScreen({ client, board, state, onLeave }: Props) {
       window.setTimeout(() => setShared(false), 1500);
     };
     if (navigator.share) {
-      void navigator.share({ title: `Capi · sala ${state.id}`, text: `Únete a mi partida en Capi`, url: inviteLink }).then(done).catch(() => undefined);
+      void navigator.share({ title: `Capichan · sala ${state.id}`, text: `Únete a mi partida en Capichan`, url: inviteLink }).then(done).catch(() => undefined);
       return;
     }
     void navigator.clipboard?.writeText(inviteLink).then(done);

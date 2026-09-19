@@ -6,3 +6,4 @@ dist/
 capi-api/prisma/*.db
 capi-api/prisma/*.db-journal
 .gstack/
+.env
