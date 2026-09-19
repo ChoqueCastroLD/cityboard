@@ -49,13 +49,26 @@ capi/
 │  └─ test/        Tests del motor (vitest).
 ├─ capi-api/       Servidor Bun + Elysia + Prisma (SQLite). REST + WebSocket. Swagger en /docs.
 └─ capi-frontend/  Cliente React 18 + Vite 6. Tablero, fichas y dados en 3D (Three.js, WebGPU con
-                   fallback a WebGL). PWA instalable, solo online.
+                   fallback a WebGL) y un modo 2D en DOM puro (sin canvas ni WebGL) que se
+                   intercambia desde el HUD. PWA instalable, solo online.
    ├─ src/three/   Escena imperativa: renderer, tablero, texturas de casilla, fichas, dados, cámara.
+   ├─ src/components/game/Board2D.tsx y board2d/  Tablero 2D: componentes React y CSS, sin canvas.
    ├─ src/screens/ Inicio (crear o unirse, partidas públicas), lobby y sala (/room/:code). TanStack Router + Query.
    ├─ src/components/game/  HUD flotante, chips de jugadores, barra inferior de acciones, registro.
    ├─ src/components/dialogs/ Casilla, subastas, intercambios, préstamo, reglas.
    └─ public/boards/<mapa>/  Ilustraciones SVG de cada casilla de ubicación.
 ```
+
+### Modos de tablero
+
+El mismo estado y los mismos diálogos alimentan dos vistas intercambiables desde el botón del HUD (se recuerda en `capi:board-view`):
+
+| Vista | Cómo se dibuja |
+| --- | --- |
+| **3D** | Three.js sobre WebGPU con fallback a WebGL (`src/three`). Incluye modos de cámara. |
+| **2D** | Componentes React y CSS (`src/components/game/Board2D.tsx` y `board2d/`). Sin canvas, sin WebGL: cada casilla y cada ficha es un elemento del DOM, el anillo se calcula con `computeRingLayout` y el movimiento se anima casilla a casilla con transiciones CSS. Útil en equipos sin GPU, en sesiones remotas y como respaldo si el 3D falla. |
+
+Ambas vistas comparten dados, cartas, registro, chat y hojas de propiedad; en 2D el botón de cámara se oculta porque no aplica.
 
 Convenciones de UI: nada de emojis, solo iconos [Lucide](https://lucide.dev) (`icon` en el JSON es el nombre PascalCase del icono); las casillas de ubicación (propiedad, transporte, servicio) muestran siempre su `image`; layout flotante sin barra de navegación, controles en una barra inferior y registro a la derecha. Tailwind 4 para estilos y Motion para animaciones.
 

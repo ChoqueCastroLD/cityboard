@@ -1,7 +1,9 @@
 import { Check, Copy, Hourglass, ListOrdered, LogOut, Settings2, Timer, Trophy } from 'lucide-react';
 import { useState } from 'react';
+import type { BoardView } from '../../lib/boardView';
 import type { SceneBackend } from '../../three/types';
 import { Sheet } from '../ui/Sheet';
+import { BoardViewButton } from './BoardViewButton';
 import { CameraModeButton } from './CameraModeButton';
 import { useGame } from './context';
 
@@ -66,7 +68,13 @@ function Countdown() {
   );
 }
 
-export function Hud({ backend }: { backend: SceneBackend | null }) {
+interface HudProps {
+  backend: SceneBackend | null;
+  boardView: BoardView;
+  onBoardView: (view: BoardView) => void;
+}
+
+export function Hud({ backend, boardView, onBoardView }: HudProps) {
   const { board, state, client, openDialog, cameraMode, setCameraMode } = useGame();
   const [copied, setCopied] = useState(false);
   const [leaving, setLeaving] = useState(false);
@@ -106,7 +114,8 @@ export function Hud({ backend }: { backend: SceneBackend | null }) {
         <button className="btn btn-icon h-9 w-9" onClick={() => openDialog({ kind: 'settings', tab: 'rules' })} aria-label="Ajustes" title="Ajustes">
           <Settings2 size={16} />
         </button>
-        <CameraModeButton mode={cameraMode} onChange={setCameraMode} />
+        <BoardViewButton view={boardView} onChange={onBoardView} />
+        {boardView === '3d' && <CameraModeButton mode={cameraMode} onChange={setCameraMode} />}
         <button className="btn btn-icon h-9 w-9" onClick={() => setLeaving(true)} aria-label="Salir" title="Salir">
           <LogOut size={16} />
         </button>

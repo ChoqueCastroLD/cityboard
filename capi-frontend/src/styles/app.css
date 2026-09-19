@@ -19,6 +19,8 @@
   --surface: #05060f;
   --seg-on: rgba(255, 255, 255, 0.16);
   --bg: radial-gradient(1200px 800px at 20% 10%, #3b2f7a 0%, #0f1024 55%, #05060f 100%);
+  --board-bg: rgba(255, 255, 255, 0.05);
+  --tile-bg: rgba(12, 14, 30, 0.72);
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);

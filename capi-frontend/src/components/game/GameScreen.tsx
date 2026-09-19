@@ -6,6 +6,7 @@ import { useGameState } from '../../hooks/useGameClient';
 import { usePhone, useTouch } from '../../hooks/useMediaQuery';
 import { useNow } from '../../hooks/useNow';
 import { useVoice } from '../../hooks/useVoice';
+import { useBoardView } from '../../lib/boardView';
 import { presentation, presentationKey } from '../../lib/presentation';
 import { guarded, PREMIUM_REQUIRED_EVENT } from '../../lib/toast';
 import { visibility } from '../../lib/visibility';
@@ -19,6 +20,7 @@ import { SettingsSheet } from '../dialogs/SettingsSheet';
 import { TileSheet } from '../dialogs/TileSheet';
 import { TradeSheet } from '../dialogs/TradeSheet';
 import { ChatPanel } from '../chat/ChatPanel';
+import { Board2D } from './Board2D';
 import { Board3D } from './Board3D';
 import { BottomDock } from './BottomDock';
 import { CardReveal, type CardRevealRequest } from './CardReveal';
@@ -42,6 +44,7 @@ export function GameScreen({ client, onLeave }: Props) {
   useBoardTheme(board.theme);
   const [dialog, setDialog] = useState<DialogState>(null);
   const [backend, setBackend] = useState<SceneBackend | null>(null);
+  const [boardView, setBoardView] = useBoardView();
   const [focusedPlayerId, setFocusedPlayerId] = useState<string | null>(null);
   const [hover, setHover] = useState<TokenHover | null>(null);
   const [tileHover, setTileHover] = useState<TileHover | null>(null);
@@ -144,31 +147,50 @@ export function GameScreen({ client, onLeave }: Props) {
   return (
     <GameContext.Provider value={value}>
       <div className="relative h-full w-full overflow-hidden">
-        <Board3D
-          key={board.id}
-          client={client}
-          board={board}
-          now={now}
-          controlledId={controlledId}
-          highlight={highlight}
-          focusTileId={dialog?.kind === 'tile' ? dialog.tileId : null}
-          focusPlayerId={focusedPlayerId}
-          cameraMode={cameraMode}
-          onTileClick={(tileId) => setDialog({ kind: 'tile', tileId })}
-          onTokenClick={(playerId) => setFocusedPlayerId((current) => (current === playerId ? null : playerId))}
-          onTokenHover={(playerId, at) => setHover(playerId && at ? { playerId, at } : null)}
-          onTileHover={(tileId, at) => setTileHover(tileId && at ? { tileId, at } : null)}
-          onCardDrawn={(event, resume) => setCardQueue((queue) => [...queue, { event, resume }])}
-          onDiceRoll={onDiceRoll}
-          onScene={(scene) => (sceneRef.current = scene)}
-          onReady={setBackend}
-        />
+        {boardView === '3d' ? (
+          <Board3D
+            key={`3d-${board.id}`}
+            client={client}
+            board={board}
+            now={now}
+            controlledId={controlledId}
+            highlight={highlight}
+            focusTileId={dialog?.kind === 'tile' ? dialog.tileId : null}
+            focusPlayerId={focusedPlayerId}
+            cameraMode={cameraMode}
+            onTileClick={(tileId) => setDialog({ kind: 'tile', tileId })}
+            onTokenClick={(playerId) => setFocusedPlayerId((current) => (current === playerId ? null : playerId))}
+            onTokenHover={(playerId, at) => setHover(playerId && at ? { playerId, at } : null)}
+            onTileHover={(tileId, at) => setTileHover(tileId && at ? { tileId, at } : null)}
+            onCardDrawn={(event, resume) => setCardQueue((queue) => [...queue, { event, resume }])}
+            onDiceRoll={onDiceRoll}
+            onScene={(scene) => (sceneRef.current = scene)}
+            onReady={setBackend}
+          />
+        ) : (
+          <Board2D
+            key={`2d-${board.id}`}
+            client={client}
+            board={board}
+            controlledId={controlledId}
+            highlight={highlight}
+            focusTileId={dialog?.kind === 'tile' ? dialog.tileId : null}
+            focusPlayerId={focusedPlayerId}
+            onTileClick={(tileId) => setDialog({ kind: 'tile', tileId })}
+            onTokenClick={(playerId) => setFocusedPlayerId((current) => (current === playerId ? null : playerId))}
+            onTokenHover={(playerId, at) => setHover(playerId && at ? { playerId, at } : null)}
+            onTileHover={(tileId, at) => setTileHover(tileId && at ? { tileId, at } : null)}
+            onCardDrawn={(event, resume) => setCardQueue((queue) => [...queue, { event, resume }])}
+            onDiceRoll={onDiceRoll}
+            onScene={(scene) => (sceneRef.current = scene)}
+          />
+        )}
         <TokenTooltip hover={touch || cardReveal ? null : hover} />
         <TileTooltip hover={touch || dialog || cardReveal ? null : tileHover} />
         <CardReveal reveal={cardReveal} project={projectPlayer} onDone={finishCard} />
         <DiceOverlay roll={diceRoll} onHidden={hideDice} />
         <EventHeadline />
-        <Hud backend={backend} />
+        <Hud backend={boardView === '3d' ? backend : null} boardView={boardView} onBoardView={setBoardView} />
         <PlayerChips />
         <EventFeed />
         <BottomDock />
