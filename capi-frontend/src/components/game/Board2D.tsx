@@ -3,9 +3,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { GameClient } from '../../client/GameClient';
 import { useGameState } from '../../hooks/useGameClient';
 import type { CardDrawnEvent, IBoardScene, ScreenPoint } from '../../three/types';
+import { Dice2D, type Throw2D } from './board2d/Dice2D';
 import { buildBoardLayout2D, seatOffset } from './board2d/layout2d';
 import { Tile2D } from './board2d/Tile2D';
 import { Token2D } from './board2d/Token2D';
+import { useViewport2d } from './board2d/useViewport2d';
 
 const STEP_MS = 140;
 const DICE_MS = 700;
@@ -39,6 +41,8 @@ export function Board2D(props: Props) {
     Object.fromEntries(client.getState().players.map((p) => [p.id, p.position])),
   );
   const [stepping, setStepping] = useState<Record<string, boolean>>({});
+  const [thrown, setThrown] = useState<Throw2D | null>(null);
+  const throwId = useRef(0);
   const busy = useRef(new Set<string>());
   const queues = useRef(new Map<string, Promise<void>>());
   const resumes = useRef(new Set<() => void>());
@@ -54,7 +58,9 @@ export function Board2D(props: Props) {
       const available = frame.getBoundingClientRect();
       if (available.width === 0 || available.height === 0) return;
       const width = Math.min(available.width, available.height * layout.ratio);
-      setBox({ width, height: width / layout.ratio });
+      const next = { width, height: width / layout.ratio };
+      boxRef.current = next;
+      setBox(next);
     };
     fit();
     const observer = new ResizeObserver(fit);
@@ -62,7 +68,31 @@ export function Board2D(props: Props) {
     return () => observer.disconnect();
   }, [layout.ratio]);
 
+  const positionsRef = useRef(positions);
+  positionsRef.current = positions;
+  const layoutRef = useRef(layout);
+  layoutRef.current = layout;
+  const boxRef = useRef<{ width: number; height: number } | null>(null);
+
+  const { viewport, dragging, reset, handlers, consumedClick } = useViewport2d(frameRef, useCallback(() => boxRef.current, []));
+
+  const throwDice = useCallback(
+    (playerId: string, dice: [number, number], settled: Promise<void>) => {
+      const id = ++throwId.current;
+      const player = client.getState().players.find((p) => p.id === playerId);
+      const index = positionsRef.current[playerId] ?? player?.position ?? 0;
+      const rect = layoutRef.current.byIndex.get(index);
+      const size = boxRef.current;
+      const fromX = rect && size ? ((rect.centerX - 50) / 100) * size.width : 0;
+      const fromY = rect && size ? ((rect.centerY - 50) / 100) * size.height : 0;
+      setThrown({ id, playerId, color: player?.color ?? '#ffffff', dice, fromX, fromY, settled: false });
+      void settled.then(() => setThrown((current) => (current?.id === id ? { ...current, settled: true } : current)));
+    },
+    [client],
+  );
+
   const place = useCallback((playerId: string, index: number) => {
+    positionsRef.current = { ...positionsRef.current, [playerId]: index };
     setPositions((current) => (current[playerId] === index ? current : { ...current, [playerId]: index }));
   }, []);
 
@@ -88,7 +118,7 @@ export function Board2D(props: Props) {
     async (playerId: string, to: number) => {
       const count = board.tiles.length;
       if (skip.current) return place(playerId, to);
-      let current = positions[playerId] ?? client.getState().players.find((p) => p.id === playerId)?.position ?? 0;
+      let current = positionsRef.current[playerId] ?? client.getState().players.find((p) => p.id === playerId)?.position ?? 0;
       let guard = 0;
       while (current !== to && guard < count) {
         current = (current + 1) % count;
@@ -99,7 +129,7 @@ export function Board2D(props: Props) {
       }
       place(playerId, to);
     },
-    [board.tiles.length, client, place, positions],
+    [board.tiles.length, client, place],
   );
 
   useEffect(() => {
@@ -123,7 +153,9 @@ export function Board2D(props: Props) {
         skip.current = true;
         for (const resume of resumes.current) resume();
         resumes.current.clear();
-        setPositions(Object.fromEntries(client.getState().players.map((p) => [p.id, p.position])));
+        const settled = Object.fromEntries(client.getState().players.map((p) => [p.id, p.position]));
+        positionsRef.current = settled;
+        setPositions(settled);
         window.setTimeout(() => (skip.current = false), 0);
       },
       resize: () => undefined,
@@ -139,7 +171,7 @@ export function Board2D(props: Props) {
         switch (event.type) {
           case 'ROLLED': {
             const settled = sleep(DICE_MS);
-            callbacks.current.onDiceRoll(event.playerId, event.dice, settled);
+            throwDice(event.playerId, event.dice, settled);
             enqueue(event.playerId, () => (skip.current ? Promise.resolve() : settled));
             break;
           }
@@ -169,7 +201,7 @@ export function Board2D(props: Props) {
       }
     };
     return client.subscribe((_next, events) => play(events));
-  }, [client, enqueue, walk]);
+  }, [client, enqueue, walk, throwDice]);
 
   useEffect(() => {
     setPositions((current) => {
@@ -205,12 +237,23 @@ export function Board2D(props: Props) {
   const highlighted = useMemo(() => new Set(highlight), [highlight]);
 
   return (
-    <div ref={frameRef} className="absolute inset-2 flex items-center justify-center overflow-hidden sm:inset-4">
+    <div
+      ref={frameRef}
+      className={`absolute inset-2 flex touch-none items-center justify-center overflow-hidden sm:inset-4 ${dragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+      {...handlers}
+      onDoubleClick={reset}
+    >
       <div
         className="relative rounded-2xl bg-[var(--board-bg)] shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
         style={
           box
-            ? { width: `${box.width}px`, height: `${box.height}px`, fontSize: `${Math.max(4.5, box.width / 92)}px` }
+            ? {
+                width: `${box.width}px`,
+                height: `${box.height}px`,
+                fontSize: `${Math.max(4.5, box.width / 92)}px`,
+                transform: `translate3d(${viewport.x}px, ${viewport.y}px, 0) scale(${viewport.zoom})`,
+                transition: dragging ? 'none' : 'transform 120ms ease-out',
+              }
             : { visibility: 'hidden', aspectRatio: String(layout.ratio), width: '100%' }
         }
       >
@@ -221,6 +264,8 @@ export function Board2D(props: Props) {
           <span className="font-display text-xl font-bold tracking-tight opacity-70 sm:text-3xl">{board.name}</span>
           <span className="text-[0.6rem] tracking-[0.3em] text-muted uppercase sm:text-xs">{state.mode === 'async' ? 'Async' : 'Clásico'}</span>
         </div>
+
+        <Dice2D roll={thrown} size={Math.max(12, Math.round((box?.width ?? 700) / 42))} onDone={(id) => setThrown((current) => (current?.id === id ? null : current))} />
 
         {layout.tiles.map((rect) => {
           const tile = board.tiles[rect.index]!;
@@ -235,7 +280,7 @@ export function Board2D(props: Props) {
               highlighted={highlighted.has(tile.id)}
               focused={focusTileId === tile.id}
               compact={(box?.width ?? 0) < 520}
-              onClick={(id) => callbacks.current.onTileClick(id)}
+              onClick={(id) => !consumedClick() && callbacks.current.onTileClick(id)}
               onHover={(id, at) => callbacks.current.onTileHover(id, at)}
             />
           );
@@ -260,7 +305,9 @@ export function Board2D(props: Props) {
                 active={state.activePlayerId === player.id || focusPlayerId === player.id}
                 controlled={controlledId === player.id}
                 stepMs={stepping[player.id] ? STEP_MS : 0}
-                onClick={(id) => callbacks.current.onTokenClick(id)}
+                hopKey={index}
+                size={Math.max(16, Math.round((box?.width ?? 700) / 34))}
+                onClick={(id) => !consumedClick() && callbacks.current.onTokenClick(id)}
                 onHover={(id, at) => callbacks.current.onTokenHover(id, at)}
                 innerRef={(el) => {
                   if (el) tokenRefs.current.set(player.id, el);

@@ -12,6 +12,8 @@ interface Props {
   active: boolean;
   controlled: boolean;
   stepMs: number;
+  hopKey: number;
+  size: number;
   onClick: (playerId: string) => void;
   onHover: (playerId: string | null, at: { x: number; y: number } | null) => void;
   innerRef: (el: HTMLButtonElement | null) => void;
@@ -27,7 +29,7 @@ function contrast(hex: string): string {
   return (r * 299 + g * 587 + b * 114) / 1000 > 140 ? '#111111' : '#ffffff';
 }
 
-export const Token2D = memo(function Token2D({ player, board, x, y, offsetX, offsetY, active, controlled, stepMs, onClick, onHover, innerRef }: Props) {
+export const Token2D = memo(function Token2D({ player, board, x, y, offsetX, offsetY, active, controlled, stepMs, hopKey, size, onClick, onHover, innerRef }: Props) {
   const option = boardTokens(board).find((t) => t.id === player.token);
   const ink = contrast(player.color);
 
@@ -35,8 +37,10 @@ export const Token2D = memo(function Token2D({ player, board, x, y, offsetX, off
     <button
       type="button"
       ref={innerRef}
-      className="absolute z-20 flex h-[26px] w-[26px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 shadow-md"
+      className="absolute z-20 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 shadow-md"
       style={{
+        height: `${size}px`,
+        width: `${size}px`,
         left: `${x}%`,
         top: `${y}%`,
         marginLeft: `${offsetX}%`,
@@ -50,12 +54,13 @@ export const Token2D = memo(function Token2D({ player, board, x, y, offsetX, off
       }}
       onClick={() => onClick(player.id)}
       onMouseEnter={(e) => onHover(player.id, { x: e.clientX, y: e.clientY })}
-      onMouseMove={(e) => onHover(player.id, { x: e.clientX, y: e.clientY })}
       onMouseLeave={() => onHover(null, null)}
       aria-label={player.name}
       title={player.name}
     >
-      <Icon name={option?.icon} size={14} strokeWidth={2.5} />
+      <span key={hopKey} className="capi-hop grid place-items-center">
+        <Icon name={option?.icon} size={Math.round(size * 0.55)} strokeWidth={2.5} />
+      </span>
       {player.inJail && <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-danger" aria-hidden />}
     </button>
   );

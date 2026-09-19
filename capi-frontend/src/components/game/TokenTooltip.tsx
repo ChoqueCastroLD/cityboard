@@ -46,7 +46,7 @@ export function TokenTooltip({ hover }: { hover: TokenHover | null }) {
     <AnimatePresence>
       {hover && player && (
         <motion.div
-          key={player.id}
+          key="token-tooltip"
           initial={{ opacity: 0, scale: 0.9, y: 4 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95 }}

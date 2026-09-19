@@ -14,9 +14,9 @@ const OPEN_KEY = 'capi:chat-open';
 
 function readOpen(): boolean {
   try {
-    return localStorage.getItem(OPEN_KEY) !== '0';
+    return localStorage.getItem(OPEN_KEY) === '1';
   } catch {
-    return true;
+    return false;
   }
 }
 

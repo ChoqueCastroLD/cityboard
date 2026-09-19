@@ -7,9 +7,9 @@ const EVENT = 'capi:board-view-change';
 
 export function readBoardView(): BoardView {
   try {
-    return window.localStorage.getItem(KEY) === '2d' ? '2d' : '3d';
+    return window.localStorage.getItem(KEY) === '3d' ? '3d' : '2d';
   } catch {
-    return '3d';
+    return '2d';
   }
 }
 

@@ -63,7 +63,7 @@ export function TileTooltip({ hover }: { hover: TileHover | null }) {
     <AnimatePresence>
       {hover && tile && (
         <motion.div
-          key={tile.id}
+          key="tile-tooltip"
           initial={{ opacity: 0, scale: 0.92, y: 6 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96 }}

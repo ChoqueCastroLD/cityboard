@@ -270,6 +270,22 @@ select.field option {
   background: var(--surface);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
 }
+@keyframes capi-hop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  45% {
+    transform: translateY(-45%) scale(1.08);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.capi-hop {
+  animation: capi-hop 140ms ease-out;
+}
+
 @media (max-width: 767px) {
   [role='dialog'].glass,
   [role='menu'].glass {

@@ -66,9 +66,9 @@ El mismo estado y los mismos diálogos alimentan dos vistas intercambiables desd
 | Vista | Cómo se dibuja |
 | --- | --- |
 | **3D** | Three.js sobre WebGPU con fallback a WebGL (`src/three`). Incluye modos de cámara. |
-| **2D** | Componentes React y CSS (`src/components/game/Board2D.tsx` y `board2d/`). Sin canvas, sin WebGL: cada casilla y cada ficha es un elemento del DOM, el anillo se calcula con `computeRingLayout` y el movimiento se anima casilla a casilla con transiciones CSS. Útil en equipos sin GPU, en sesiones remotas y como respaldo si el 3D falla. |
+| **2D** (por defecto) | Componentes React y CSS (`src/components/game/Board2D.tsx` y `board2d/`). Sin canvas, sin WebGL: cada casilla y cada ficha es un elemento del DOM y el anillo se calcula con `computeRingLayout`. Las fichas saltan de casilla en casilla, los dados se lanzan al centro del tablero, y el mapa se mueve arrastrando con el botón izquierdo y se acerca con la rueda (doble clic lo recentra). Útil en equipos sin GPU, en sesiones remotas y como respaldo si el 3D falla. |
 
-Ambas vistas comparten dados, cartas, registro, chat y hojas de propiedad; en 2D el botón de cámara se oculta porque no aplica.
+Ambas vistas comparten cartas, registro, chat y hojas de propiedad; en 2D el botón de cámara se oculta porque no aplica y los dados se dibujan sobre el propio tablero.
 
 Convenciones de UI: nada de emojis, solo iconos [Lucide](https://lucide.dev) (`icon` en el JSON es el nombre PascalCase del icono); las casillas de ubicación (propiedad, transporte, servicio) muestran siempre su `image`; layout flotante sin barra de navegación, controles en una barra inferior y registro a la derecha. Tailwind 4 para estilos y Motion para animaciones.
 
