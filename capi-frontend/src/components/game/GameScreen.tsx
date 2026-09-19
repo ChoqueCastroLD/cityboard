@@ -56,7 +56,9 @@ export function GameScreen({ client, onLeave }: Props) {
     window.addEventListener(PREMIUM_REQUIRED_EVENT, openCeo);
     return () => window.removeEventListener(PREMIUM_REQUIRED_EVENT, openCeo);
   }, []);
-  const touch = useTouch() || usePhone();
+  const isTouch = useTouch();
+  const phone = usePhone();
+  const touch = isTouch || phone;
   const [cardPeekSeed, setCardPeekSeed] = useState(1);
   useEffect(
     () =>

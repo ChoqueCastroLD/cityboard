@@ -270,6 +270,13 @@ select.field option {
   background: var(--surface);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
 }
+@media (max-width: 767px) {
+  [role='dialog'].glass,
+  [role='menu'].glass {
+    background: rgba(12, 14, 30, 0.94);
+  }
+}
+
 .theme-clean .btn {
   background: var(--fill);
   border: 0;
