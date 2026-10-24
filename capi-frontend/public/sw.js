@@ -1,9 +1,10 @@
-const CACHE = 'capichan-static-v1';
+const CACHE = 'capichan-monopoly-v1';
+const BASE = new URL(self.registration.scope).pathname;
 
-const isStaticAsset = (url) => url.origin === self.location.origin && (url.pathname.startsWith('/boards/') || url.pathname.startsWith('/assets/') || /\.(png|svg|webmanifest|woff2?)$/.test(url.pathname));
+const isStaticAsset = (url) => url.origin === self.location.origin && url.pathname.startsWith(BASE) && (url.pathname.startsWith(`${BASE}boards/`) || url.pathname.startsWith(`${BASE}assets/`) || /\.(png|svg|webmanifest|woff2?)$/.test(url.pathname));
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(['/index.html', '/manifest.webmanifest', '/icon.svg'])).then(() => self.skipWaiting()));
+  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll([`${BASE}index.html`, `${BASE}manifest.webmanifest`, `${BASE}icon.svg`])).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (event) => {
@@ -14,7 +15,7 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
-  if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/ws/')) return;
+  if (!url.pathname.startsWith(BASE) || url.pathname.startsWith(`${BASE}api/`) || url.pathname.startsWith(`${BASE}ws/`)) return;
   if (isStaticAsset(url)) {
     event.respondWith(
       caches.open(CACHE).then(async (cache) => {
@@ -28,6 +29,6 @@ self.addEventListener('fetch', (event) => {
     return;
   }
   if (request.mode === 'navigate') {
-    event.respondWith(fetch(request).catch(() => caches.match('/index.html').then((cached) => cached ?? Response.error())));
+    event.respondWith(fetch(request).catch(() => caches.match(`${BASE}index.html`).then((cached) => cached ?? Response.error())));
   }
 });

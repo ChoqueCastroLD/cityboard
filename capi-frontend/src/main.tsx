@@ -10,7 +10,13 @@ const queryClient = new QueryClient({
 });
 
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
-  window.addEventListener('load', () => void navigator.serviceWorker.register('/sw.js'));
+  window.addEventListener('load', () => {
+    const base = import.meta.env.BASE_URL;
+    void navigator.serviceWorker.getRegistrations().then((registrations) =>
+      Promise.all(registrations.filter((r) => new URL(r.scope).pathname === '/').map((r) => r.unregister())),
+    );
+    void navigator.serviceWorker.register(`${base}sw.js`, { scope: base });
+  });
 }
 
 const fontsReady = Promise.race([document.fonts.load('1em "Nunito Variable"').then(() => document.fonts.load('700 1em "Fredoka Variable"')), new Promise((resolve) => window.setTimeout(resolve, 900))]);

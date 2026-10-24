@@ -7,7 +7,7 @@ COPY capi-frontend/package.json capi-frontend/
 RUN bun install --frozen-lockfile
 COPY capi-core capi-core
 COPY capi-frontend capi-frontend
-ENV VITE_API_URL=""
+ENV VITE_API_URL="/monopoly"
 RUN cd capi-frontend && bunx vite build
 
 FROM nginx:1.27-alpine

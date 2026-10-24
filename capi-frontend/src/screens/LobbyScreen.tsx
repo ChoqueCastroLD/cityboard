@@ -151,7 +151,7 @@ export function LobbyScreen({ client, board, state, onLeave }: Props) {
       <Loader2 size={14} className="animate-spin" /> Esperando al anfitrión
     </span>
   );
-  const inviteLink = `${window.location.origin}/room/${state.id}`;
+  const inviteLink = `${window.location.origin}${import.meta.env.BASE_URL}room/${state.id}`;
   const share = () => {
     const done = () => {
       setShared(true);

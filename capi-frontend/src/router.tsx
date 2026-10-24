@@ -44,7 +44,7 @@ function RootError({ error }: { error: unknown }) {
         <h2 className="text-lg font-semibold">Algo salió mal</h2>
         <p className="text-sm text-muted">Ocurrió un error inesperado en esta pantalla. Puedes volver al inicio; tu partida sigue guardada en el servidor.</p>
         <p className="text-xs break-all text-muted">{message}</p>
-        <a className="btn btn-primary h-11" href="/">
+        <a className="btn btn-primary h-11" href={import.meta.env.BASE_URL}>
           Volver al inicio
         </a>
       </div>
@@ -65,6 +65,7 @@ const fallbackRoute = createRoute({
 
 export const router = createRouter({
   routeTree: rootRoute.addChildren([homeRoute, roomRoute, fallbackRoute]),
+  basepath: import.meta.env.BASE_URL,
   defaultPreload: 'intent',
 });
 

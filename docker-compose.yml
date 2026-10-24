@@ -9,8 +9,8 @@ services:
       NODE_ENV: production
       PORT: "3000"
       DATABASE_URL: "file:/data/capi.db"
-      CORS_ORIGINS: "http://capichan.com,https://capichan.com"
-      APP_URL: "http://capichan.com"
+      CORS_ORIGINS: "https://capichan.com,http://capichan.com"
+      APP_URL: "https://capichan.com/monopoly"
       AUTH_PEPPER: "${AUTH_PEPPER}"
       TICK_MS: "1000"
       RESEND_API_KEY: "${RESEND_API_KEY}"
@@ -43,10 +43,13 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=coolify
-      - traefik.http.routers.capichan.rule=Host(`capichan.com`)
+      - traefik.http.routers.capichan.rule=Host(`capichan.com`) && PathPrefix(`/monopoly`)
       - traefik.http.routers.capichan.entrypoints=http
-      - traefik.http.routers.capichan-https.rule=Host(`capichan.com`)
+      - traefik.http.routers.capichan-https.rule=Host(`capichan.com`) && PathPrefix(`/monopoly`)
       - traefik.http.routers.capichan-https.entrypoints=https
+      - traefik.http.routers.capichan.middlewares=capichan-monopoly-strip
+      - traefik.http.routers.capichan-https.middlewares=capichan-monopoly-strip
+      - traefik.http.middlewares.capichan-monopoly-strip.stripprefix.prefixes=/monopoly
       - traefik.http.routers.capichan-https.tls=true
       - traefik.http.routers.capichan-https.tls.certresolver=letsencrypt
       - traefik.http.services.capichan.loadbalancer.server.port=80

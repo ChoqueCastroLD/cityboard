@@ -46,6 +46,15 @@ export interface BillingStatus {
   configured: boolean;
 }
 
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function rebase<T>(value: T): T {
+  if (typeof value === 'string') return (value.startsWith('/boards/') ? `${BASE}${value}` : value) as T;
+  if (Array.isArray(value)) return value.map(rebase) as T;
+  if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, rebase(v)])) as T;
+  return value;
+}
+
 export const API_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:3000').replace(/\/$/, '');
 
 export interface BoardSummary {
@@ -75,7 +84,7 @@ async function request<T>(path: string, init: RequestInit & { secret?: string } 
   const account = accountToken();
   if (account) headers['x-account'] = `Bearer ${account}`;
   const res = await fetch(`${API_URL}${path}`, { ...init, headers });
-  const body = (await res.json().catch(() => ({}))) as { error?: { code?: string; message?: string } } & T;
+  const body = rebase(await res.json().catch(() => ({}))) as { error?: { code?: string; message?: string } } & T;
   if (!res.ok) throw new ApiError(body.error?.code ?? 'HTTP_ERROR', body.error?.message ?? `Error ${res.status}`, res.status);
   return body;
 }
