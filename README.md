@@ -38,6 +38,8 @@ Más: `startingCash`, `passStartBonus`, `landStartBonus` (total al caer exactame
 
 El anfitrión puede **forzar la jugada** de un jugador desde su menú (`FORCE_PLAY`): produce el mismo efecto que agotar el tiempo de inactividad (tirar, decidir la compra al azar o terminar el turno). Salir de una partida en curso declara la bancarrota de quien sale (`LEAVE`), y la interfaz lo avisa antes. Valores por defecto en `capi-core/src/engine/rules.ts`; cada tablero puede sobrescribirlos con `defaultRules`.
 
+Documentación interna y procesos operativos: [`docs/`](docs/README.md).
+
 ## Estructura
 
 ```
